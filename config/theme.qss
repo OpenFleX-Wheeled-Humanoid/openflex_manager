@@ -1,0 +1,351 @@
+/* [palette:light]
+window_bg=#ffffff
+panel_bg=#ffffff
+text_color=#1f2937
+muted_text=#4b5563
+border_color=#d1d5db
+group_title_bg=#2563eb
+group_title_text=#ffffff
+section_title_color=#2563eb
+btn_bg=#a8b0bd
+btn_text=#111827
+btn_hover_bg=#c4cad4
+btn_pressed_bg=#8b93a1
+btn_disabled_bg=#d1d5db
+btn_disabled_text=#6b7280
+btn_border=#9ca3af
+input_bg=#ffffff
+tab_bg=#f3f6fb
+tab_selected_bg=#ffffff
+menu_bg=#ffffff
+menu_hover_bg=#e8eefc
+log_info_color=#1f2937
+log_success_color=#16a34a
+log_error_color=#dc2626
+log_warning_color=#d4a017
+[/palette:light] */
+
+/* [palette:dark]
+window_bg=#0b0f14
+panel_bg=#141b24
+text_color=#f1f5f9
+muted_text=#94a3b8
+border_color=#3d4f63
+group_title_bg=#3b82f6
+group_title_text=#ffffff
+section_title_color=#60a5fa
+btn_bg=#a8b0bd
+btn_text=#0f1419
+btn_hover_bg=#c8cfd8
+btn_pressed_bg=#8b93a1
+btn_border=#d1d5db
+btn_disabled_bg=#3d4a5c
+btn_disabled_text=#64748b
+input_bg=#0f1620
+tab_bg=#1e293b
+tab_selected_bg=#0b0f14
+menu_bg=#141b24
+menu_hover_bg=#334155
+log_info_color=#e2e8f0
+log_success_color=#4ade80
+log_error_color=#f87171
+log_warning_color=#fbbf24
+[/palette:dark] */
+
+QMainWindow {
+    background-color: {window_bg};
+    color: {text_color};
+    font-size: 12px;
+}
+
+QDialog {
+    background-color: {window_bg};
+    color: {text_color};
+}
+
+QWidget {
+    color: {text_color};
+}
+
+QGroupBox {
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    margin-top: 10px;
+    padding-top: 12px;
+    background-color: {panel_bg};
+    font-weight: 600;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 2px 8px;
+    color: {text_color};
+    background-color: transparent;
+}
+
+QPushButton {
+    background-color: {btn_bg};
+    color: {btn_text};
+    border: 1px solid {btn_border};
+    border-radius: 5px;
+    padding: 0 12px;
+    min-height: 30px;
+    font-weight: 600;
+}
+
+QPushButton:hover {
+    background-color: {btn_hover_bg};
+}
+
+QPushButton:pressed {
+    background-color: {btn_pressed_bg};
+}
+
+QPushButton:checked {
+    background-color: {btn_pressed_bg};
+    color: {btn_text};
+    border: 1px solid {btn_border};
+}
+
+QPushButton:disabled {
+    background-color: {btn_disabled_bg};
+    color: {btn_disabled_text};
+}
+
+QPushButton#themeToggleButton {
+    background-color: transparent;
+    color: transparent;
+    border: none;
+    padding: 0;
+    min-height: 0;
+}
+
+QPushButton#themeToggleButton:hover {
+    background-color: rgba(127, 127, 127, 0.18);
+    border-radius: 6px;
+}
+
+QPushButton#themeToggleButton:pressed {
+    background-color: rgba(127, 127, 127, 0.28);
+    border-radius: 6px;
+}
+
+QMenuBar {
+    background-color: {menu_bg};
+    color: {text_color};
+}
+
+QMenuBar::item {
+    background-color: transparent;
+    padding: 4px 8px;
+}
+
+QMenuBar::item:selected {
+    background-color: {menu_hover_bg};
+}
+
+QMenu {
+    background-color: {menu_bg};
+    color: {text_color};
+    border: 1px solid {border_color};
+}
+
+QMenu::item {
+    padding: 6px 20px;
+}
+
+QMenu::item:selected {
+    background-color: {menu_hover_bg};
+}
+
+QTabWidget::pane {
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    background-color: {panel_bg};
+}
+
+QTabBar::tab {
+    background-color: {tab_bg};
+    color: {text_color};
+    border: 1px solid {border_color};
+    border-bottom: none;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    min-width: 72px;
+    min-height: 28px;
+    padding: 0 12px;
+}
+
+QTabBar::tab:selected {
+    background-color: {tab_selected_bg};
+    color: {text_color};
+    border-top: 2px solid {group_title_bg};
+}
+
+QTabBar::tab:!selected {
+    color: {muted_text};
+}
+
+QTableWidget, QTextEdit {
+    background-color: {input_bg};
+    color: {text_color};
+    border: 1px solid {border_color};
+    border-radius: 4px;
+    selection-background-color: {group_title_bg};
+    selection-color: {group_title_text};
+}
+
+QTableWidget {
+    color: {text_color};
+}
+
+QComboBox {
+    background-color: {input_bg};
+    color: {text_color};
+    border: 1px solid {border_color};
+    border-radius: 4px;
+    padding: 2px 8px;
+    min-height: 26px;
+}
+
+QComboBox QAbstractItemView {
+    background-color: {input_bg};
+    color: {text_color};
+    selection-background-color: {menu_hover_bg};
+    selection-color: {text_color};
+}
+
+QHeaderView::section {
+    background-color: {tab_bg};
+    color: {text_color};
+    border: 1px solid {border_color};
+    padding: 4px;
+}
+QSpinBox, QDoubleSpinBox {
+    background-color: {input_bg};
+    color: {text_color};
+    border: 1px solid {border_color};
+    border-radius: 4px;
+    padding: 2px 6px;
+    min-height: 26px;
+}
+
+QSlider::groove:horizontal {
+    background: {border_color};
+    height: 6px;
+    border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+    background: {group_title_bg};
+    border: 1px solid {btn_border};
+    width: 14px;
+    margin: -4px 0;
+    border-radius: 7px;
+}
+
+QScrollBar:vertical {
+    background: {panel_bg};
+    width: 10px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background: {border_color};
+    min-height: 24px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: {btn_hover_bg};
+}
+
+QScrollBar:horizontal {
+    background: {panel_bg};
+    height: 10px;
+}
+
+QScrollBar::handle:horizontal {
+    background: {border_color};
+    min-width: 24px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: {btn_hover_bg};
+}
+
+QScrollBar::add-line, QScrollBar::sub-line {
+    width: 0;
+    height: 0;
+}
+
+QPushButton[objectName^="chassis_um_module_"]:checked,
+QPushButton[objectName^="chassis_rs_module_"]:checked {
+    background-color: {btn_pressed_bg};
+    color: {btn_text};
+    border: 1px solid {btn_border};
+    font-weight: bold;
+}
+
+/* 左侧 Tab 页容器 */
+QWidget#leftTabContent {
+    background-color: {panel_bg};
+}
+
+/* 底盘 / 升降台 Tab 左侧控制区 */
+QScrollArea#chassisScrollArea,
+QScrollArea#columnScrollArea,
+QScrollArea#headScrollArea {
+    background-color: {panel_bg};
+    border: none;
+}
+
+QWidget#chassisScrollViewport,
+QWidget#columnScrollViewport,
+QWidget#headScrollViewport,
+QWidget#chassisControlPanel,
+QWidget#chassisSectionBody,
+QWidget#columnControlPanel,
+QWidget#headControlPanel {
+    background-color: {panel_bg};
+    border: none;
+}
+
+QLabel#chassisSectionTitle,
+QLabel#columnSectionTitle,
+QLabel#headSectionTitle {
+    color: {section_title_color};
+    font-weight: 700;
+    font-size: 13px;
+    padding: 2px 0 4px 0;
+    background: transparent;
+    border: none;
+}
+
+QLabel#columnDetailLabel {
+    color: {muted_text};
+    background: transparent;
+    font-size: 12px;
+    padding: 4px 0;
+}
+
+QFrame#chassisDivider,
+QFrame#columnDivider,
+QFrame#headDivider {
+    background-color: {border_color};
+    border: none;
+    max-height: 1px;
+    margin: 4px 0;
+}
+
+QGroupBox#chassisStatePanel,
+QGroupBox#columnStatePanel,
+QGroupBox#headStatePanel {
+    border: 1px solid {border_color};
+    border-radius: 6px;
+    margin-top: 10px;
+    padding-top: 12px;
+    background-color: {panel_bg};
+}

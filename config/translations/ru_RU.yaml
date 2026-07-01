@@ -1,0 +1,400 @@
+window_title: OpenFlex Manager
+menu_settings: Настройки(&S)
+menu_language: Язык(&L)
+menu_help: Справка(&H)
+action_param_settings: Параметры
+action_lang_zh: 中文
+action_lang_en: English
+action_lang_ja: 日本語
+action_lang_ru: Русский
+theme_tooltip_switch_to_dark: Переключить на темную тему
+theme_tooltip_switch_to_light: Переключить на светлую тему
+action_about: О программе
+btn_start_can: Запустить CAN
+btn_stop_can: Остановить CAN
+btn_check_can: Проверить CAN
+btn_whole_body_zero: Обнуление всего тела
+btn_start_teleop: Запустить телеуправление
+btn_moveit: MOVEIT
+btn_vr: VR
+btn_lerobot: Сбор данных lerobot
+tab_head: Голова
+tab_dual_arm: Две руки
+tab_column: Подъёмная платформа
+tab_base: База
+placeholder_content: Содержимое страницы {name} пока не добавлено
+group_motor_enable: Включение моторов
+btn_enable: Включить
+btn_disable: Отключить
+group_motor_zero: Нулевая точка мотора
+btn_set_zero: Задать ноль
+btn_go_zero: В ноль
+group_motor_control: Управление моторами
+label_arm_target: Цель
+arm_left_title: Левая рука
+arm_right_title: Правая рука
+arm_both_title: Обе руки
+arm_left_short: Л
+arm_right_short: П
+arm_both_short: Обе
+label_speed: Размер шага
+arm_joint_labels:
+- J1
+- J2
+- J3
+- J4
+- J5
+- J6
+- J7
+- Захват
+joint_value_demo: 12.37°
+arm_init_can_bus_initialized: "[Arm] CAN шина {channel}{side_info} инициализирована"
+arm_init_loading_direction: "[Arm] {side} рука: загрузка коэффициентов направления из конфигурации"
+arm_init_reversed_motors: "[Arm] Реверсированные моторы: {motors}"
+arm_init_arm_initialized: "[Arm] Рука инициализирована, ID моторов: {motor_ids}"
+arm_side_info_right: " (правая рука)"
+arm_side_info_left: " (левая рука)"
+btn_test_all_motors: Тест всех моторов
+group_motor_status: Состояние моторов
+motor_headers:
+- CAN
+- ID мотора
+- Позиция(rad)
+- Скорость(rad/s)
+- Момент(Nm)
+- Темп.(C)
+- Режим
+- Статус
+btn_one_click_check: Проверить состояние моторов
+btn_start_monitor: Начать мониторинг
+arm_side_right: "правая"
+arm_side_left: "левая"
+btn_stop_monitor: Остановить мониторинг
+log_monitor_started: Мониторинг в реальном времени запущен
+log_monitor_stopped: Мониторинг в реальном времени остановлен
+label_output: Вывод
+log_whole_body_zero: Обнуление всего тела
+log_whole_body_zero_start: Начало обнуления всего тела...
+log_whole_body_zero_success: 'Обнуление всего тела успешно: {total} моторов'
+log_whole_body_zero_partial: 'Обнуление всего тела частично успешно: {failed} неудачно, {success} успешно, всего {total} моторов'
+log_whole_body_zero_error: 'Обнуление всего тела не удалось: {error}'
+log_start_teleop: Запуск телеуправления
+log_start_moveit: Запуск MOVEIT
+log_enter_vr: Переход в режим VR
+log_start_lerobot: Запуск сбора данных lerobot
+log_set_zero_sent: Команда задания нуля отправлена
+log_set_zero_start: 'Начало задания нуля {arm}...'
+log_set_zero_success: 'Задание нуля {arm} успешно'
+log_set_zero_partial: 'Задание нуля {arm} частично успешно: {failed} моторов неудачно'
+log_set_zero_error: 'Задание нуля {arm} не удалось: {error}'
+log_set_zero_start_both: 'Начало задания нуля обеих рук...'
+log_set_zero_success_both: 'Задание нуля обеих рук успешно'
+log_set_zero_partial_both: 'Задание нуля обеих рук частично успешно: {failed} моторов неудачно'
+log_set_zero_error_both: 'Задание нуля обеих рук не удалось: {error}'
+dialog_set_zero_progress_both: 'Задание нуля обеих рук...'
+log_go_zero_start_both: 'Начало возврата в ноль обеих рук (режим MIT)...'
+log_go_zero_success_both: 'Возврат в ноль обеих рук успешен: всего {total} моторов'
+log_go_zero_partial_both: 'Возврат в ноль обеих рук частично успешен: {failed} моторов неудачно, {success} успешно, всего {total}'
+log_go_zero_error_both: 'Возврат в ноль обеих рук не удался: {error}'
+dialog_go_zero_progress_both: 'Возврат в ноль обеих рук (режим MIT)...'
+log_go_zero_sent: Команда возврата в ноль отправлена
+log_go_zero_start: 'Начало возврата в ноль {arm}...'
+log_go_zero_success: 'Возврат в ноль {arm} успешно'
+log_go_zero_partial: 'Возврат в ноль {arm} частично успешно: {failed} моторов неудачно'
+log_go_zero_error: 'Возврат в ноль {arm} не удалось: {error}'
+log_invalid_arm_selection: Неверный выбор руки
+log_robot_not_initialized: Robot не инициализирован
+dialog_set_zero_title: Задание нуля
+dialog_set_zero_progress: 'Задание нуля {arm}...'
+dialog_go_zero_title: Возврат в ноль
+dialog_go_zero_progress: 'Возврат в ноль {arm}...'
+dialog_whole_body_zero_title: Обнуление всего тела
+dialog_whole_body_zero_progress: Обнуление всего тела...
+log_joint_minus: '{joint}: уменьшение'
+log_joint_plus: '{joint}: увеличение'
+table_status_online: В сети
+log_can_starting: Запуск CAN каналов...
+log_can_started: Все CAN каналы запущены
+log_can_start_failed: Не удалось запустить CAN каналы
+log_can_stopping: Остановка CAN каналов...
+log_can_stopped: Все CAN каналы остановлены
+log_can_stop_failed: Не удалось остановить CAN каналы
+log_can_checking: Проверка CAN каналов...
+log_can_check_ok: 'Проверка CAN пройдена, онлайн: {interfaces}'
+log_can_check_none: Все CAN интерфейсы отключены
+log_motor_enabling: 'Включение моторов {arm}...'
+log_motor_enabled: Моторы включены
+log_motor_enabled_success: '{arm} включены: {count} моторов'
+log_motor_disabling: 'Отключение моторов {arm}...'
+log_motor_disabled: Моторы отключены
+log_motor_disabled_success: '{arm} отключены: {count} моторов'
+log_test_all_motors_start: Запуск теста всех моторов ({arm})
+log_test_all_motors_done: Тест всех моторов завершен
+log_test_all_motors_success: 'Тест моторов завершен: {total} моторов успешно ✓'
+log_test_all_motors_partial: 'Тест моторов завершен: {success} успешно, {failed} неудачно (всего {total})'
+dialog_test_motors_title: Тест моторов
+dialog_test_motors_progress: Тестирование моторов по одному, пожалуйста подождите...
+motor_test_failed: Тест не пройден
+log_one_click_start: Запуск проверки всех
+log_one_click_done: 'Проверка завершена: 2/2 в сети'
+log_one_click_done_with_count: 'Проверка завершена: {count} моторов в сети'
+dialog_motor_checking_title: Проверка состояния моторов
+dialog_motor_checking: Проверка состояния моторов, пожалуйста подождите...
+dialog_motor_check_fail_title: Ошибка проверки моторов
+dialog_motor_check_fail_description: 'Обнаружено {count} моторов без ответа или с ошибкой'
+motor_fail_header_arm: Рука
+motor_fail_header_can: CAN канал
+motor_fail_header_motor_id: ID мотора
+motor_fail_header_error: Ошибка
+motor_fail_no_response: Нет ответа
+motor_fail_unknown_error: Неизвестная ошибка
+motor_fail_system: Система
+motor_enable_failed: Ошибка включения
+motor_set_zero_failed: Ошибка задания нуля
+motor_go_zero_failed: Ошибка возврата в ноль
+motor_disable_failed: Ошибка отключения
+dialog_motor_enabling_title: Включение моторов
+dialog_motor_enabling: Включение моторов, пожалуйста подождите...
+dialog_motor_disabling_title: Отключение моторов
+dialog_motor_disabling: Отключение моторов, пожалуйста подождите...
+log_motor_enabled_all_failed: '{arm} ошибка включения: Все моторы не отвечают'
+log_motor_disabled_all_failed: '{arm} ошибка отключения: Все моторы не отвечают'
+motor_mode_reset: Режим сброса
+motor_mode_cali: Режим калибровки
+motor_mode_motor: Рабочий режим
+motor_mode_unknown: Неизвестный режим
+motor_fault_normal: Нормально
+motor_fault_not_calibrated: Не откалиброван
+motor_fault_stall_overload: Перегрузка при блокировке
+motor_fault_encoder: Ошибка энкодера
+motor_fault_overtemp: Перегрев
+motor_fault_driver: Ошибка драйвера
+motor_fault_undervoltage: Пониженное напряжение
+log_robot_initialized: 'Robot инициализирован (правая: {right}, левая: {left})'
+dialog_can_status_title: Состояние CAN каналов
+dialog_can_status_description: Обнаруженные CAN каналы и их состояние
+can_status_header_interface: Интерфейс
+can_status_header_status: Состояние
+can_status_header_start: Запуск
+can_status_header_stop: Остановка
+can_status_up: UP
+can_status_down: DOWN
+btn_refresh: Обновить
+btn_close: Закрыть
+btn_start: Запустить
+btn_stop: Остановить
+log_can_check_result: 'Проверка CAN завершена: {total} интерфейсов, {up} UP, {down} DOWN'
+log_can_refreshing: Обновление состояния CAN...
+log_can_starting_single: 'Запуск {interface}...'
+log_can_started_single: '{interface} запущен успешно'
+log_can_start_failed_single: 'Не удалось запустить {interface}'
+log_can_start_error_single: 'Ошибка запуска {interface}: {error}'
+log_can_stopping_single: 'Остановка {interface}...'
+log_can_stopped_single: '{interface} остановлен'
+log_can_stop_failed_single: 'Не удалось остановить {interface}'
+log_can_stop_error_single: 'Ошибка остановки {interface}: {error}'
+group_chassis_enable: Включение шасси
+group_chassis_tools: Подключение и инструменты
+btn_chassis_switch_to_motion: Переключить на движение шасси
+btn_chassis_switch_to_motor: Переключить на управление моторами
+dialog_chassis_motor_safety_title: Предупреждение о безопасности
+dialog_chassis_motor_safety_message: При тестировании отдельных моторов убедитесь, что шасси приподнято над полом, чтобы избежать неожиданного движения колёс и травм. Также избегайте перегрузки моторов, чтобы предотвратить их повреждение.
+dialog_chassis_motion_safety_title: Предупреждение по управлению шасси
+dialog_chassis_motion_safety_message: |
+  Кнопки Вперёд, Назад, Влево, Вправо, Поворот влево и Поворот вправо работают как переключатели.
+  После нажатия шасси начинает двигаться в выбранном направлении на текущей скорости.
+  Чтобы отменить движение и остановить его, нажмите ту же кнопку ещё раз.
+dialog_chassis_motion_safety_informative: Управляйте только тогда, когда вокруг достаточно места, рядом нет людей, на пути нет препятствий и кнопка аварийной остановки готова к использованию.
+group_chassis_motion: Движение шасси
+group_chassis_zero: Нулевая точка руля
+group_chassis_status: Статус шасси
+chassis_motor_type_rs: Руль(RS)
+chassis_motor_type_um: Привод(UM)
+chassis_headers:
+- Модуль
+- Тип
+- CAN
+- ID мотора
+- Позиция
+- Скорость
+- Момент/Ток
+- Темп.(°C)
+- Режим
+- Статус
+label_chassis_linear_speed: Линейная скорость
+label_chassis_angular_speed: Угловая скорость
+suffix_chassis_linear_speed: " m/s"
+suffix_chassis_angular_speed: " rad/s"
+btn_chassis_forward: Вперёд
+btn_chassis_backward: Назад
+btn_chassis_left: Влево
+btn_chassis_right: Вправо
+btn_chassis_rotate_left: Поворот влево
+btn_chassis_rotate_right: Поворот вправо
+btn_chassis_motion_stop: Стоп
+btn_chassis_connect: Подключить шасси
+btn_chassis_disconnect: Отключить шасси
+btn_chassis_scan: Проверить состояние моторов
+btn_chassis_stop: Остановить привод
+btn_chassis_estop: Аварийная остановка
+btn_chassis_zero_manual: Ручная установка нуля
+btn_chassis_zero_auto: Авто установка нуля
+btn_chassis_zero_passive: Ручная установка нуля
+btn_chassis_zero_active: Авто установка нуля
+btn_chassis_um_start: Пуск
+btn_chassis_um_stop: Стоп
+log_chassis_not_connected: Сначала подключите шасси
+log_chassis_set_zero_start: Установка нуля RS руля
+log_chassis_set_zero_success: 'RS {mode}: OK {ok}/{total} модулей'
+log_chassis_set_zero_partial: 'RS {mode}: частично {ok}/{total} модулей'
+log_chassis_set_zero_failed: '{mode} ошибка: {error}'
+log_chassis_auto_zero_warning: 'Авто нуль: поиск упоров, освободите зону'
+log_chassis_auto_zero_reenable: После авто нуля снова включите рулевые моторы
+log_chassis_go_zero_start: RS возврат в ноль (движение к 0°)
+log_chassis_go_zero_success: 'RS в ноль: OK {ok}/{total} модулей'
+log_chassis_go_zero_partial: 'RS в ноль: частично {ok}/{total} модулей'
+log_chassis_go_zero_failed: 'RS в ноль ошибка: {error}'
+chassis_module_FL: Перед. лев.
+chassis_module_FR: Перед. прав.
+chassis_module_BL: Зад. лев.
+chassis_module_BR: Зад. прав.
+dialog_chassis_enabling_title: Включение шасси
+dialog_chassis_enabling: Включение моторов шасси...
+dialog_chassis_disabling_title: Отключение шасси
+dialog_chassis_disabling: Отключение моторов шасси...
+group_column_enable: Включение подъёмной платформы
+group_column_tools: Подключение и инструменты
+group_column_mode: Режим управления
+group_column_motion: Управление движением
+group_column_velocity: Скоростное управление
+group_column_position: Позиционное управление
+group_column_homing: Ноль и возврат
+group_column_status: Статус подъёмной платформы
+label_column_target: Целевая позиция
+suffix_column_target: " m"
+label_column_jog_speed: Скорость джога
+label_column_profile_speed: Профильная скорость
+label_column_move_speed: Скорость движения
+suffix_column_move_speed: " m/s"
+btn_column_jog_up: "▲ Вверх"
+btn_column_jog_down: "▼ Вниз"
+btn_column_move_to: Перейти к позиции
+btn_column_mode_velocity: Скоростной режим
+btn_column_mode_position: Позиционный режим
+column_mode_velocity_short: Скорость
+column_mode_position_short: Позиция
+column_detail_mode: "Режим: {mode}"
+log_column_mode_velocity_active: Переключено в скоростной режим
+log_column_mode_position_active: Переключено в позиционный режим
+log_column_mode_velocity_failed: Не удалось переключить в скоростной режим
+log_column_mode_position_failed: Не удалось переключить в позиционный режим
+log_column_mode_velocity_required: Сначала переключитесь в скоростной режим
+log_column_mode_position_required: Сначала переключитесь в позиционный режим
+log_column_jog_start: "Джог {speed:+.3f} m/s"
+log_column_jog_stop: Джог остановлен
+log_column_jog_failed: Ошибка джога
+log_column_move_to_start: "Перемещение к {target:.4f} m со скоростью {speed:.3f} m/s"
+log_column_move_to_success: "Достигнута позиция {target:.4f} m"
+log_column_move_to_failed: "Ошибка перемещения: {error}"
+log_column_relative_move_start: "Относительное перемещение {delta:+.4f} m"
+log_column_relative_move_success: Относительное перемещение выполнено
+log_column_relative_move_failed: "Ошибка относительного перемещения: {error}"
+btn_column_connect: Подключить подъёмную платформу
+btn_column_disconnect: Отключить подъёмную платформу
+btn_column_stop: Стоп
+btn_column_estop: Аварийный стоп
+btn_column_set_zero: Установить ноль
+btn_column_return_home: Возврат в ноль
+btn_column_stop_homing: Остановить поиск нуля
+column_headers:
+- CAN
+- Node ID
+- Позиция (m)
+- Скорость (m/s)
+- Состояние
+- Ошибка
+- HOME
+- Верх
+column_status_fault: Ошибка
+column_switch_on: Активен
+column_switch_off: Неактивен
+column_homed_yes: Ноль установлен
+column_homed_no: Ноль не установлен
+column_detail_homing: "Операция нуля: {detail}"
+column_detail_status: "Поз. {pos:.4f} m | Скор. {vel:.4f} m/s | {homed}"
+column_detail_waiting: Ожидание ответа привода...
+column_detail_disconnected: Подъёмная платформа не подключена
+log_column_disabled: Функция подъёмной платформы отключена
+log_column_not_connected: Сначала подключите подъёмную платформу
+log_column_not_enabled: Сначала включите привод подъёмной платформы
+log_column_homing_busy: Операция нуля выполняется
+log_column_connecting: Подключение подъёмной платформы...
+log_column_connected: Подъёмная платформа подключена
+log_column_already_connected: Подъёмная платформа уже подключена
+log_column_disconnect_failed: "Ошибка отключения подъёмной платформы: {error}"
+log_column_connect_failed: "Ошибка подключения подъёмной платформы: {error}"
+log_column_disconnected: Подъёмная платформа отключена
+log_column_enabling: Включение подъёмной платформы...
+log_column_enabled: Подъёмная платформа включена
+log_column_enable_failed: "Ошибка включения подъёмной платформы: {error}"
+log_column_disabling: Отключение подъёмной платформы...
+log_column_disabled_ok: Подъёмная платформа отключена
+log_column_disable_failed: "Ошибка отключения подъёмной платформы: {error}"
+log_column_motion_stopped: Движение подъёмной платформы остановлено
+log_column_estop: Аварийная остановка подъёмной платформы
+log_column_set_zero_start: Поиск HOME для установки нуля...
+log_column_need_set_zero_first: Сначала установите ноль
+log_column_return_home_start: Возврат подъёмной платформы в ноль...
+log_column_homing_abort: Запрошена остановка операции нуля
+log_column_homing_success: Операция нуля/возврата успешна
+log_column_homing_failed: "Ошибка нуля/возврата: {error}"
+dialog_column_return_home_title: Подтверждение возврата
+dialog_column_return_home_confirm: Подъёмная платформа переместится в нулевую позицию. Продолжить?
+
+group_head_enable: Включение моторов головы
+group_head_tools: Подключение и инструменты
+group_head_motion: Движение суставов
+group_head_zero: Ноль и возврат
+group_head_status: Панель состояния головы
+label_head_step: Шаг
+suffix_head_step_deg: " °"
+head_joint_yaw: Рыскание Yaw
+head_joint_pitch: Тангаж Pitch
+head_headers:
+- Сустав
+- CAN
+- ID мотора
+- Позиция
+- Скорость(rad/s)
+- Момент(Nm)
+- Темп.(°C)
+- Режим
+- Статус
+btn_head_zero_manual: Ручной ноль
+btn_head_zero_auto: Авто ноль
+btn_head_connect: Подключить голову
+btn_head_disconnect: Отключить голову
+btn_head_stop: Стоп
+btn_head_sync: Обновить статус
+log_head_disabled: Функция головы отключена
+log_head_not_connected: Сначала подключите голову
+log_head_not_enabled: Сначала включите моторы головы
+log_head_connecting: Подключение головы...
+log_head_connected: Голова подключена
+log_head_connect_failed: "Ошибка подключения головы: {error}"
+log_head_disconnected: Голова отключена
+log_head_enabling: Включение головы...
+log_head_enabled: Голова включена
+log_head_enable_failed: "Ошибка включения головы: {error}"
+log_head_disabling: Отключение головы...
+log_head_disabled_ok: Голова отключена
+log_head_disable_failed: "Ошибка отключения головы: {error}"
+log_head_set_zero_start: Установка нуля головы...
+log_head_set_zero_success: Ноль головы установлен
+log_head_set_zero_failed: Ошибка установки нуля головы
+log_head_go_zero_start: Возврат головы в ноль...
+log_head_go_zero_success: Голова возвращена в ноль
+log_head_go_zero_failed: Ошибка возврата головы
+log_head_stopped: Движение головы остановлено
+log_head_checking: Проверка моторов головы...
+log_head_init_failed: "Ошибка инициализации головы (подключите после CAN): {error}"

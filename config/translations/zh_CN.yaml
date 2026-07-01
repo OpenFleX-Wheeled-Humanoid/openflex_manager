@@ -1,0 +1,420 @@
+window_title: OpenFlex Manager
+menu_settings: 设置(&S)
+menu_language: 语言(&L)
+menu_help: 帮助(&H)
+action_param_settings: 参数设置
+action_lang_zh: 中文
+action_lang_en: English
+action_lang_ja: 日本語
+action_lang_ru: Русский
+theme_tooltip_switch_to_dark: 切换到暗色主题
+theme_tooltip_switch_to_light: 切换到亮色主题
+action_about: 关于
+btn_start_can: 启动CAN
+btn_stop_can: 关闭CAN
+btn_check_can: 检查CAN
+btn_whole_body_zero: 全身回零
+btn_start_teleop: 启动全身遥控
+btn_moveit: MOVEIT
+btn_vr: VR
+btn_lerobot: lerobot数据采集
+tab_head: 头部
+tab_dual_arm: 双臂
+tab_column: 升降台
+tab_base: 底盘
+placeholder_content: '{name}页面内容待接入'
+group_motor_enable: 电机启用
+btn_enable: 使能
+btn_disable: 失能
+group_motor_zero: 电机零点
+btn_set_zero: 设定零点
+btn_go_zero: 回零
+group_motor_control: 电机控制
+label_arm_target: 控制目标
+arm_left_title: 左臂
+arm_right_title: 右臂
+arm_both_title: 双臂
+arm_left_short: 左臂
+arm_right_short: 右臂
+arm_init_can_bus_initialized: "[Arm] CAN 总线 {channel}{side_info} 初始化成功"
+arm_init_loading_direction: "[Arm] {side} 臂: 从配置加载方向系数"
+arm_init_reversed_motors: "[Arm] 反向电机: {motors}"
+arm_init_arm_initialized: "[Arm] 机械臂初始化成功，电机 ID: {motor_ids}"
+arm_side_info_right: " (右臂)"
+arm_side_right: "右"
+arm_side_left: "左"
+arm_side_info_left: " (左臂)"
+arm_both_short: 双臂
+label_speed: 步长
+arm_joint_labels:
+- J1
+- J2
+- J3
+- J4
+- J5
+- J6
+- J7
+- 夹爪
+joint_value_demo: 12.37度
+btn_test_all_motors: 测试全部电机
+group_motor_status: 电机状态面板
+motor_headers:
+- CAN通道
+- 电机ID
+- 位置(rad)
+- 速度(rad/s)
+- 扭矩(Nm)
+- 温度(C)
+- 模式
+- 状态
+btn_one_click_check: 检查电机状态
+btn_start_monitor: 开始实时监控
+btn_stop_monitor: 停止实时监控
+log_monitor_started: 实时监控已启动
+log_monitor_stopped: 实时监控已停止
+label_output: 输出栏
+log_whole_body_zero: 全身回零
+log_whole_body_zero_start: 开始全身回零...
+log_whole_body_zero_success: '全身回零成功: {total} 个电机'
+log_whole_body_zero_partial: '全身回零部分成功: {failed} 个失败, {success} 个成功, 共 {total} 个电机'
+log_whole_body_zero_error: '全身回零失败: {error}'
+log_start_teleop: 启动全身遥控
+log_start_moveit: 启动 MOVEIT
+log_enter_vr: 进入 VR 模式
+log_start_lerobot: 开始 lerobot 数据采集
+log_set_zero_sent: 设定零点指令已下发
+log_set_zero_start: '开始设定 {arm} 零点...'
+log_set_zero_success: '{arm} 零点设定成功'
+log_set_zero_partial: '{arm} 零点设定部分成功: {failed} 个电机失败'
+log_set_zero_error: '{arm} 零点设定失败: {error}'
+log_set_zero_start_both: '开始设定双臂零点...'
+log_set_zero_success_both: '双臂零点设定成功'
+log_set_zero_partial_both: '双臂零点设定部分成功: {failed} 个电机失败'
+log_set_zero_error_both: '双臂零点设定失败: {error}'
+dialog_set_zero_progress_both: '正在设定双臂零点...'
+log_go_zero_start_both: '开始双臂回零（MIT模式）...'
+log_go_zero_success_both: '双臂回零成功: 共 {total} 个电机'
+log_go_zero_partial_both: '双臂回零部分成功: {failed} 个电机失败，{success} 个成功，共 {total} 个'
+log_go_zero_error_both: '双臂回零失败: {error}'
+dialog_go_zero_progress_both: '正在双臂回零（MIT模式）...'
+log_go_zero_sent: 回零指令已下发
+log_go_zero_start: '开始 {arm} 回零...'
+log_go_zero_success: '{arm} 回零成功'
+log_go_zero_partial: '{arm} 回零部分成功: {failed} 个电机失败'
+log_go_zero_error: '{arm} 回零失败: {error}'
+log_invalid_arm_selection: 无效的机械臂选择
+log_robot_not_initialized: Robot 未初始化
+dialog_set_zero_title: 设定零点
+dialog_set_zero_progress: '正在设定 {arm} 零点...'
+dialog_go_zero_title: 回零
+dialog_go_zero_progress: '正在 {arm} 回零...'
+dialog_whole_body_zero_title: 全身回零
+dialog_whole_body_zero_progress: 正在全身回零...
+log_joint_minus: '{joint} 反向调节'
+log_joint_plus: '{joint} 正向调节'
+table_status_online: 在线
+log_can_starting: 正在启动 CAN 通道...
+log_can_started: CAN 通道已全部启动
+log_can_start_failed: CAN 通道启动失败
+log_can_stopping: 正在关闭 CAN 通道...
+log_can_stopped: CAN 通道已全部关闭
+log_can_stop_failed: CAN 通道关闭失败
+log_can_checking: 正在检查 CAN 通道...
+log_can_check_ok: 'CAN 检查通过，在线接口: {interfaces}'
+log_can_check_none: 所有 CAN 接口都已关闭
+log_motor_enabling: '正在使能 {arm} 电机...'
+log_motor_enabled: 电机已使能
+log_motor_enabled_success: '{arm} 使能完成: {count} 个电机'
+log_motor_disabling: '正在失能 {arm} 电机...'
+log_motor_disabled: 电机已失能
+log_motor_disabled_success: '{arm} 失能完成: {count} 个电机'
+log_test_all_motors_start: 开始测试全部电机（{arm}）
+log_test_all_motors_done: 全部电机测试完成
+log_test_all_motors_success: '电机测试完成: {total} 个电机全部成功 ✓'
+log_test_all_motors_partial: '电机测试完成: {success} 个成功, {failed} 个失败 (共 {total} 个)'
+dialog_test_motors_title: 测试电机
+dialog_test_motors_progress: 正在逐个测试电机，请稍候...
+motor_test_failed: 测试失败
+log_one_click_start: 开始一键检测
+log_one_click_done: 检查完成：2/2 在线
+log_one_click_done_with_count: '检查完成: {count} 个电机在线'
+dialog_motor_checking_title: 检查电机状态
+dialog_motor_checking: 正在检查电机状态，请稍候...
+dialog_motor_check_fail_title: 电机检查失败
+dialog_motor_check_fail_description: '检测到 {count} 个电机无响应或失败'
+motor_fail_header_arm: 臂
+motor_fail_header_can: CAN通道
+motor_fail_header_motor_id: 电机ID
+motor_fail_header_error: 错误信息
+motor_fail_no_response: 无响应
+motor_fail_unknown_error: 未知错误
+motor_fail_system: 系统
+motor_enable_failed: 使能失败
+motor_set_zero_failed: 设置零点失败
+motor_go_zero_failed: 回零失败
+motor_disable_failed: 失能失败
+dialog_motor_enabling_title: 使能电机
+dialog_motor_enabling: 正在使能电机，请稍候...
+dialog_motor_disabling_title: 失能电机
+dialog_motor_disabling: 正在失能电机，请稍候...
+log_motor_enabled_all_failed: '{arm} 使能失败: 所有电机无响应'
+log_motor_disabled_all_failed: '{arm} 失能失败: 所有电机无响应'
+motor_mode_reset: Reset模式[复位]
+motor_mode_cali: Cali模式[标定]
+motor_mode_motor: Motor模式[运行]
+motor_mode_unknown: 未知模式
+motor_fault_normal: 正常
+motor_fault_not_calibrated: 未标定
+motor_fault_stall_overload: 堵转过载故障
+motor_fault_encoder: 磁编码故障
+motor_fault_overtemp: 过温
+motor_fault_driver: 驱动故障
+motor_fault_undervoltage: 欠压故障
+log_robot_initialized: 'Robot 初始化成功 (右臂: {right}, 左臂: {left})'
+dialog_can_status_title: CAN 通道状态
+dialog_can_status_description: 检测到的 CAN 通道及其状态
+can_status_header_interface: 接口名称
+can_status_header_status: 状态
+can_status_header_start: 启动
+can_status_header_stop: 关闭
+can_status_up: UP
+can_status_down: DOWN
+btn_refresh: 刷新
+btn_close: 关闭
+btn_start: 启动
+btn_stop: 关闭
+log_can_check_result: 'CAN 检查完成: 共 {total} 个接口, {up} 个 UP, {down} 个 DOWN'
+log_can_refreshing: 正在刷新 CAN 状态...
+log_can_starting_single: '正在启动 {interface}...'
+log_can_started_single: '{interface} 启动成功'
+log_can_start_failed_single: '{interface} 启动失败'
+log_can_start_error_single: '{interface} 启动出错: {error}'
+log_can_stopping_single: '正在关闭 {interface}...'
+log_can_stopped_single: '{interface} 已关闭'
+log_can_stop_failed_single: '{interface} 关闭失败'
+log_can_stop_error_single: '{interface} 关闭出错: {error}'
+group_chassis_enable: 底盘电机启用
+group_chassis_tools: 连接与工具
+group_chassis_um_motors: UM 驱动电机（速度 RPM）
+group_chassis_rs_motors: RS 转向电机（角度）
+label_chassis_motor_speed: 速度
+label_chassis_motor_angle: 角度
+btn_chassis_apply_speed: 设置速度
+btn_chassis_um_start: 启动
+btn_chassis_um_stop: 停止
+btn_chassis_apply_angle: 设置角度
+chassis_motor_um_label: "{module} 驱动 UM{id}"
+chassis_motor_rs_label: "{module} 转向 RS{id}"
+chassis_motor_type_rs: 转向(RS)
+chassis_motor_type_um: 驱动(UM)
+btn_chassis_switch_to_motion: 切换到整车运动
+btn_chassis_switch_to_motor: 切换到电机操控
+dialog_chassis_motor_safety_title: 单电机测试安全提示
+dialog_chassis_motor_safety_message: 单个电机测试时请确保底盘已离地，避免轮子接触地面发生意外移动或人员受伤；同时避免电机过载运行，以免造成损坏。
+dialog_chassis_motion_safety_title: 底盘操作提示
+dialog_chassis_motion_safety_message: |
+  前进、后退、左移、右移、左转、右转按钮均为切换式控制。
+  按下后，底盘会按当前速度立即朝对应方向运动。
+  再次点击同一按钮，即可取消并停止该运动。
+dialog_chassis_motion_safety_informative: 请在确认周围空间充足、人员远离设备、运动路径无障碍物，并确认急停措施可随时使用后再进行操作。
+group_chassis_motion: 整车运动
+group_chassis_zero: 转向零点
+group_chassis_status: 底盘状态面板
+chassis_headers:
+- 模块
+- 类型
+- CAN通道
+- 电机ID
+- 位置
+- 速度
+- 扭矩/电流
+- 温度(°C)
+- 模式
+- 状态
+label_chassis_linear_speed: 线速度
+label_chassis_angular_speed: 角速度
+suffix_chassis_linear_speed: " m/s"
+suffix_chassis_angular_speed: " rad/s"
+btn_chassis_forward: 前进
+btn_chassis_backward: 后退
+btn_chassis_left: 向左
+btn_chassis_right: 向右
+btn_chassis_rotate_left: 左转
+btn_chassis_rotate_right: 右转
+btn_chassis_motion_stop: 停止
+btn_chassis_connect: 连接底盘
+btn_chassis_disconnect: 断开底盘
+btn_chassis_scan: 检查电机状态
+btn_chassis_stop: 停止驱动
+btn_chassis_estop: 急停
+btn_chassis_zero_manual: 手动设零
+btn_chassis_zero_auto: 自动设零
+btn_chassis_zero_passive: 手动设零
+btn_chassis_zero_active: 自动设零
+log_chassis_not_connected: 请先连接底盘
+log_chassis_set_zero_start: 开始 RS 转向设零
+log_chassis_set_zero_success: 'RS {mode} 成功: {ok}/{total} 个模块'
+log_chassis_set_zero_partial: 'RS {mode} 部分成功: {ok}/{total} 个模块'
+log_chassis_set_zero_failed: '{mode} 失败: {error}'
+log_chassis_auto_zero_warning: 自动设零：电机将自动寻限位，请确保转向机构周围无障碍物
+log_chassis_auto_zero_reenable: 自动设零后转向电机处于失能状态，请重新使能后再运动
+log_chassis_go_zero_start: 开始 RS 转向回零（运动到 0°）
+log_chassis_go_zero_success: 'RS 回零成功: {ok}/{total} 个模块'
+log_chassis_go_zero_partial: 'RS 回零部分成功: {ok}/{total} 个模块'
+log_chassis_go_zero_failed: 'RS 回零失败: {error}'
+chassis_module_FL: 左前
+chassis_module_FR: 右前
+chassis_module_BL: 左后
+chassis_module_BR: 右后
+dialog_chassis_enabling_title: 使能底盘
+dialog_chassis_enabling: 正在使能底盘电机，请稍候...
+dialog_chassis_disabling_title: 失能底盘
+dialog_chassis_disabling: 正在失能底盘电机，请稍候...
+group_column_enable: 升降台电机启用
+group_column_tools: 连接与工具
+group_column_mode: 控制模式
+group_column_motion: 运动控制
+group_column_velocity: 速度控制
+group_column_position: 位置控制
+group_column_homing: 零点与回零
+group_column_status: 升降台状态面板
+label_column_target: 目标位置
+suffix_column_target: " m"
+label_column_jog_speed: 点动速度
+label_column_profile_speed: 轮廓速度
+label_column_move_speed: 移动速度
+suffix_column_move_speed: " m/s"
+btn_column_jog_up: "▲ 上移"
+btn_column_jog_down: "▼ 下移"
+btn_column_move_to: 移动到位置
+btn_column_mode_velocity: 速度模式
+btn_column_mode_position: 位置模式
+column_mode_velocity_short: 速度
+column_mode_position_short: 位置
+column_detail_mode: "模式: {mode}"
+log_column_mode_velocity_active: 已切换到速度模式
+log_column_mode_position_active: 已切换到位置模式
+log_column_mode_velocity_failed: 切换到速度模式失败
+log_column_mode_position_failed: 切换到位置模式失败
+log_column_mode_velocity_required: 请先切换到速度模式
+log_column_mode_position_required: 请先切换到位置模式
+log_column_jog_start: "速度点动 {speed:+.3f} m/s"
+log_column_jog_stop: 速度点动已停止
+log_column_jog_failed: 速度点动失败
+log_column_move_to_start: "开始移动到 {target:.4f} m，速度 {speed:.3f} m/s"
+log_column_move_to_success: "已到达目标位置 {target:.4f} m"
+log_column_move_to_failed: "位置移动失败: {error}"
+log_column_relative_move_start: "相对移动 {delta:+.4f} m"
+log_column_relative_move_success: 相对移动完成
+log_column_relative_move_failed: "相对移动失败: {error}"
+btn_column_connect: 连接升降台
+btn_column_disconnect: 断开升降台
+btn_column_stop: 停止
+btn_column_estop: 急停
+btn_column_set_zero: 设置零点
+btn_column_return_home: 回零
+btn_column_stop_homing: 停止零点操作
+column_headers:
+- CAN通道
+- 节点ID
+- 位置(m)
+- 速度(m/s)
+- 驱动状态
+- 故障
+- HOME
+- 上限
+column_status_fault: 故障
+column_switch_on: 触发
+column_switch_off: 未触发
+column_homed_yes: 已设零
+column_homed_no: 未设零
+column_detail_homing: "零点操作进行中: {detail}"
+column_detail_status: "位置 {pos:.4f} m | 速度 {vel:.4f} m/s | {homed}"
+column_detail_waiting: 等待驱动反馈...
+column_detail_disconnected: 未连接升降台
+log_column_disabled: 升降台功能未启用
+log_column_not_connected: 请先连接升降台
+log_column_not_enabled: 请先使能升降台电机
+log_column_homing_busy: 零点操作进行中
+log_column_connecting: 正在连接升降台...
+log_column_connected: 升降台已连接
+log_column_already_connected: 升降台已连接，无需重复连接
+log_column_disconnect_failed: "升降台断开失败: {error}"
+log_column_connect_failed: "升降台连接失败: {error}"
+log_column_disconnected: 升降台已断开
+log_column_enabling: 正在使能升降台...
+log_column_enabled: 升降台已使能
+log_column_enable_failed: "升降台使能失败: {error}"
+log_column_disabling: 正在失能升降台...
+log_column_disabled_ok: 升降台已失能
+log_column_disable_failed: "升降台失能失败: {error}"
+log_column_motion_stopped: 升降台运动已停止
+log_column_estop: 升降台急停已执行
+log_column_set_zero_start: 开始设置升降台零点...
+dialog_column_zero_mode_prompt: |
+  选择回零方式：
+  「是」= 被动回零（当前位置设为零点）
+  「否」= 主动回零（寻上下限位取中点）
+  「取消」= 放弃
+log_column_need_set_zero_first: 请先设置零点，再执行回零
+log_column_return_home_start: 开始升降台回零...
+log_column_homing_abort: 已请求中止零点操作
+log_column_homing_success: 升降台零点/回零操作成功
+log_column_homing_failed: "升降台零点/回零失败: {error}"
+dialog_column_return_home_title: 确认回零
+dialog_column_return_home_confirm: 升降台将自动移动到零位，确定执行回零操作？
+
+group_head_enable: 头部电机启用
+group_head_tools: 连接与工具
+group_head_motion: 关节运动
+group_head_zero: 零点与回零
+group_head_status: 头部状态面板
+label_head_step: 步长
+suffix_head_step_deg: " °"
+head_joint_yaw: 偏航 Yaw
+head_joint_pitch: 俯仰 Pitch
+head_headers:
+- 关节
+- CAN通道
+- 电机ID
+- 位置
+- 速度(rad/s)
+- 扭矩(Nm)
+- 温度(°C)
+- 模式
+- 状态
+btn_head_zero_manual: 手动设零
+btn_head_zero_auto: 自动设零
+btn_head_connect: 连接头部
+btn_head_disconnect: 断开连接
+btn_head_check_can: 刷新状态
+btn_head_sync: 刷新状态
+log_head_disabled: 头部功能未启用
+log_head_not_connected: 请先连接头部 CAN
+log_head_not_enabled: 请先使能头部电机
+log_head_connecting: 正在连接头部 CAN...
+log_head_connected: 头部 CAN 已连接
+log_head_connect_failed: "头部 CAN 连接失败: {error}"
+log_head_disconnected: 头部 CAN 已断开
+log_head_already_connected: 头部 CAN 已连接，无需重复连接
+log_head_disconnect_failed: "头部 CAN 断开失败: {error}"
+log_head_can_check_ok_connected: "CAN 通道 {channel} 正常，头部已连接"
+log_head_can_check_ok_disconnected: "CAN 通道 {channel} 已 UP，但头部未建立连接，请点击「连接头部」"
+log_head_can_check_down: "CAN 通道 {channel} 未连接或未启动"
+log_head_enabling: 正在使能头部...
+log_head_enabled: 头部已使能
+log_head_enable_failed: "头部使能失败: {error}"
+log_head_disabling: 正在失能头部...
+log_head_disabled_ok: 头部已失能
+log_head_disable_failed: "头部失能失败: {error}"
+log_head_set_zero_start: 开始设置头部零点...
+log_head_set_zero_success: 头部零点设置成功
+log_head_set_zero_failed: 头部零点设置失败
+log_head_active_zero_warning: 自动设零：电机将自动寻限位，请确保头部周围无障碍物
+log_head_active_zero_reenable: 自动设零后电机处于失能状态，请重新使能后再运动
+log_head_go_zero_start: 开始头部回零...
+log_head_go_zero_success: 头部回零成功
+log_head_go_zero_failed: 头部回零失败
+log_head_stopped: 头部运动已停止
+log_head_checking: 正在检查头部电机...
+log_head_init_failed: "头部初始化失败（CAN 未就绪时将延后连接）: {error}"

@@ -1,0 +1,420 @@
+window_title: OpenFlex Manager
+menu_settings: Settings(&S)
+menu_language: Language(&L)
+menu_help: Help(&H)
+action_param_settings: Parameters
+action_lang_zh: 中文
+action_lang_en: English
+action_lang_ja: 日本語
+action_lang_ru: Русский
+theme_tooltip_switch_to_dark: Switch to dark theme
+theme_tooltip_switch_to_light: Switch to light theme
+action_about: About
+btn_start_can: Start CAN
+btn_stop_can: Stop CAN
+btn_check_can: Check CAN
+btn_whole_body_zero: Whole Body Zero
+btn_start_teleop: Start Teleop
+btn_moveit: MOVEIT
+btn_vr: VR
+btn_lerobot: Lerobot Data
+tab_head: Head
+tab_dual_arm: Dual Arm
+tab_column: Lift Platform
+tab_base: Base
+placeholder_content: '{name} page content to be integrated'
+group_motor_enable: Motor Enable
+btn_enable: Enable
+btn_disable: Disable
+group_motor_zero: Motor Zero
+btn_set_zero: Set Zero
+btn_go_zero: Go Zero
+group_motor_control: Motor Control
+label_arm_target: Target
+arm_left_title: Left Arm
+arm_right_title: Right Arm
+arm_both_title: Both Arms
+arm_init_can_bus_initialized: "[Arm] CAN bus {channel}{side_info} initialized"
+arm_init_loading_direction: "[Arm] {side} arm: loading direction multipliers from config"
+arm_init_reversed_motors: "[Arm] Reversed motors: {motors}"
+arm_init_arm_initialized: "[Arm] Arm initialized, motor IDs: {motor_ids}"
+arm_side_info_right: " (right arm)"
+arm_side_info_left: " (left arm)"
+arm_left_short: L
+arm_side_right: "right"
+arm_side_left: "left"
+arm_right_short: R
+arm_both_short: Both
+label_speed: Step Size
+arm_joint_labels:
+- J1
+- J2
+- J3
+- J4
+- J5
+- J6
+- J7
+- Gripper
+joint_value_demo: 12.37 deg
+btn_test_all_motors: Test All Motors
+group_motor_status: Motor Status
+motor_headers:
+- CAN
+- Motor ID
+- Position(rad)
+- Velocity(rad/s)
+- Torque(Nm)
+- Temp(C)
+- Mode
+- Status
+btn_one_click_check: Check Motor Status
+btn_start_monitor: Start Real-time Monitor
+btn_stop_monitor: Stop Real-time Monitor
+log_monitor_started: Real-time monitoring started
+log_monitor_stopped: Real-time monitoring stopped
+label_output: Output
+log_whole_body_zero: Whole body zero
+log_whole_body_zero_start: Starting whole body zero...
+log_whole_body_zero_success: 'Whole body zero successful: {total} motors'
+log_whole_body_zero_partial: 'Whole body zero partially successful: {failed} failed, {success} succeeded, total {total} motors'
+log_whole_body_zero_error: 'Whole body zero failed: {error}'
+log_start_teleop: Start teleop
+log_start_moveit: Start MOVEIT
+log_enter_vr: Enter VR mode
+log_start_lerobot: Start Lerobot data collection
+log_set_zero_sent: Set-zero command sent
+log_set_zero_start: 'Starting {arm} set zero...'
+log_set_zero_success: '{arm} set zero successful'
+log_set_zero_partial: '{arm} set zero partially successful: {failed} motors failed'
+log_set_zero_error: '{arm} set zero failed: {error}'
+log_set_zero_start_both: 'Starting both arms set zero...'
+log_set_zero_success_both: 'Both arms set zero successful'
+log_set_zero_partial_both: 'Both arms set zero partially successful: {failed} motors failed'
+log_set_zero_error_both: 'Both arms set zero failed: {error}'
+dialog_set_zero_progress_both: 'Setting both arms zero...'
+log_go_zero_start_both: 'Starting both arms go zero (MIT mode)...'
+log_go_zero_success_both: 'Both arms go zero successful: {total} motors total'
+log_go_zero_partial_both: 'Both arms go zero partially successful: {failed} motors failed, {success} succeeded, {total} total'
+log_go_zero_error_both: 'Both arms go zero failed: {error}'
+dialog_go_zero_progress_both: 'Both arms going zero (MIT mode)...'
+log_go_zero_sent: Go-zero command sent
+log_go_zero_start: 'Starting {arm} go zero...'
+log_go_zero_success: '{arm} go zero successful'
+log_go_zero_partial: '{arm} go zero partially successful: {failed} motors failed'
+log_go_zero_error: '{arm} go zero failed: {error}'
+log_invalid_arm_selection: Invalid arm selection
+log_robot_not_initialized: Robot not initialized
+dialog_set_zero_title: Set Zero
+dialog_set_zero_progress: 'Setting {arm} zero...'
+dialog_go_zero_title: Go Zero
+dialog_go_zero_progress: '{arm} going to zero...'
+dialog_whole_body_zero_title: Whole Body Zero
+dialog_whole_body_zero_progress: Whole body going to zero...
+log_joint_minus: '{joint} decrease'
+log_joint_plus: '{joint} increase'
+table_status_online: Online
+log_can_starting: Starting CAN channels...
+log_can_started: All CAN channels started
+log_can_start_failed: Failed to start CAN channels
+log_can_stopping: Stopping CAN channels...
+log_can_stopped: All CAN channels stopped
+log_can_stop_failed: Failed to stop CAN channels
+log_can_checking: Checking CAN channels...
+log_can_check_ok: 'CAN check passed, online: {interfaces}'
+log_can_check_none: All CAN interfaces are down
+log_motor_enabling: 'Enabling {arm} motors...'
+log_motor_enabled: Motors enabled
+log_motor_enabled_success: '{arm} enabled: {count} motors'
+log_motor_disabling: 'Disabling {arm} motors...'
+log_motor_disabled: Motors disabled
+log_motor_disabled_success: '{arm} disabled: {count} motors'
+log_test_all_motors_start: Start testing all motors ({arm})
+log_test_all_motors_done: All motor tests completed
+log_test_all_motors_success: 'Motor test completed: {total} motors all succeeded ✓'
+log_test_all_motors_partial: 'Motor test completed: {success} succeeded, {failed} failed (total {total})'
+dialog_test_motors_title: Test Motors
+dialog_test_motors_progress: Testing motors one by one, please wait...
+motor_test_failed: Test failed
+log_one_click_start: Start one-click check
+log_one_click_done: 'Check complete: 2/2 online'
+log_one_click_done_with_count: 'Check complete: {count} motors online'
+dialog_motor_checking_title: Checking Motor Status
+dialog_motor_checking: Checking motor status, please wait...
+dialog_motor_check_fail_title: Motor Check Failed
+dialog_motor_check_fail_description: 'Detected {count} motors with no response or failed'
+motor_fail_header_arm: Arm
+motor_fail_header_can: CAN Channel
+motor_fail_header_motor_id: Motor ID
+motor_fail_header_error: Error
+motor_fail_no_response: No response
+motor_fail_unknown_error: Unknown error
+motor_fail_system: System
+motor_enable_failed: Enable failed
+motor_set_zero_failed: Set zero failed
+motor_go_zero_failed: Go zero failed
+motor_disable_failed: Disable failed
+dialog_motor_enabling_title: Enabling Motors
+dialog_motor_enabling: Enabling motors, please wait...
+dialog_motor_disabling_title: Disabling Motors
+dialog_motor_disabling: Disabling motors, please wait...
+log_motor_enabled_all_failed: '{arm} enable failed: All motors no response'
+log_motor_disabled_all_failed: '{arm} disable failed: All motors no response'
+motor_mode_reset: Reset mode
+motor_mode_cali: Cali mode
+motor_mode_motor: Motor mode
+motor_mode_unknown: Unknown mode
+motor_fault_normal: Normal
+motor_fault_not_calibrated: Not calibrated
+motor_fault_stall_overload: Stall overload
+motor_fault_encoder: Encoder fault
+motor_fault_overtemp: Overtemp
+motor_fault_driver: Driver fault
+motor_fault_undervoltage: Undervoltage
+log_robot_initialized: 'Robot initialized (right: {right}, left: {left})'
+dialog_can_status_title: CAN Channel Status
+dialog_can_status_description: Detected CAN channels and their status
+can_status_header_interface: Interface
+can_status_header_status: Status
+can_status_header_start: Start
+can_status_header_stop: Stop
+can_status_up: UP
+can_status_down: DOWN
+btn_refresh: Refresh
+btn_close: Close
+btn_start: Start
+btn_stop: Stop
+log_can_check_result: 'CAN check complete: {total} interfaces, {up} UP, {down} DOWN'
+log_can_refreshing: Refreshing CAN status...
+log_can_starting_single: 'Starting {interface}...'
+log_can_started_single: '{interface} started successfully'
+log_can_start_failed_single: 'Failed to start {interface}'
+log_can_start_error_single: 'Error starting {interface}: {error}'
+log_can_stopping_single: 'Stopping {interface}...'
+log_can_stopped_single: '{interface} stopped'
+log_can_stop_failed_single: 'Failed to stop {interface}'
+log_can_stop_error_single: 'Error stopping {interface}: {error}'
+group_chassis_enable: Chassis Motor Enable
+group_chassis_tools: Connection & Tools
+group_chassis_um_motors: UM Drive Motors (Speed RPM)
+group_chassis_rs_motors: RS Steering Motors (Angle)
+label_chassis_motor_speed: Speed
+label_chassis_motor_angle: Angle
+btn_chassis_apply_speed: Set Speed
+btn_chassis_um_start: Start
+btn_chassis_um_stop: Stop
+btn_chassis_apply_angle: Set Angle
+chassis_motor_um_label: "{module} Drive UM{id}"
+chassis_motor_rs_label: "{module} Steer RS{id}"
+chassis_motor_type_rs: Steer(RS)
+chassis_motor_type_um: Drive(UM)
+btn_chassis_switch_to_motion: Switch to Chassis Motion
+btn_chassis_switch_to_motor: Switch to Motor Control
+dialog_chassis_motor_safety_title: Motor Test Safety Notice
+dialog_chassis_motor_safety_message: When testing individual motors, ensure the chassis is lifted off the ground to prevent unexpected wheel movement or injury. Also avoid motor overload to prevent damage.
+dialog_chassis_motion_safety_title: Chassis Operation Notice
+dialog_chassis_motion_safety_message: |
+  The Forward, Backward, Left, Right, Turn Left, and Turn Right buttons work as toggle controls.
+  After pressing one of them, the chassis moves in that direction at the current speed.
+  Press the same button again to cancel and stop the motion.
+dialog_chassis_motion_safety_informative: Operate only when the area is clear, people are away from the robot, the path is free of obstacles, and the emergency stop is ready to use.
+group_chassis_motion: Chassis Motion
+group_chassis_zero: Steering Zero
+group_chassis_status: Chassis Status
+chassis_headers:
+- Module
+- Type
+- CAN
+- Motor ID
+- Position
+- Velocity
+- Torque/Current
+- Temp(°C)
+- Mode
+- Status
+label_chassis_linear_speed: Linear Speed
+label_chassis_angular_speed: Angular Speed
+suffix_chassis_linear_speed: " m/s"
+suffix_chassis_angular_speed: " rad/s"
+btn_chassis_forward: Forward
+btn_chassis_backward: Backward
+btn_chassis_left: Left
+btn_chassis_right: Right
+btn_chassis_rotate_left: Rotate CCW
+btn_chassis_rotate_right: Rotate CW
+btn_chassis_motion_stop: Stop
+btn_chassis_connect: Connect Chassis
+btn_chassis_disconnect: Disconnect Chassis
+btn_chassis_scan: Check Motor Status
+btn_chassis_stop: Stop Driving
+btn_chassis_estop: E-Stop
+btn_chassis_zero_manual: Manual Zero Set
+btn_chassis_zero_auto: Auto Zero Set
+btn_chassis_zero_passive: Manual Zero Set
+btn_chassis_zero_active: Auto Zero Set
+log_chassis_not_connected: Connect chassis first
+log_chassis_set_zero_start: RS steering zero setup started
+log_chassis_set_zero_success: 'RS {mode} OK: {ok}/{total} modules'
+log_chassis_set_zero_partial: 'RS {mode} partial: {ok}/{total} modules'
+log_chassis_set_zero_failed: '{mode} failed: {error}'
+log_chassis_auto_zero_warning: Auto zero set will seek limits; clear the area around steering
+log_chassis_auto_zero_reenable: After auto zero set, re-enable steering before motion
+log_chassis_go_zero_start: RS steering go-home started (move to 0°)
+log_chassis_go_zero_success: 'RS go-home OK: {ok}/{total} modules'
+log_chassis_go_zero_partial: 'RS go-home partial: {ok}/{total} modules'
+log_chassis_go_zero_failed: 'RS go-home failed: {error}'
+chassis_module_FL: Front Left
+chassis_module_FR: Front Right
+chassis_module_BL: Rear Left
+chassis_module_BR: Rear Right
+dialog_chassis_enabling_title: Enable Chassis
+dialog_chassis_enabling: Enabling chassis motors, please wait...
+dialog_chassis_disabling_title: Disable Chassis
+dialog_chassis_disabling: Disabling chassis motors, please wait...
+group_column_enable: Lift Platform Enable
+group_column_tools: Connection & Tools
+group_column_mode: Control Mode
+group_column_motion: Motion Control
+group_column_velocity: Velocity Control
+group_column_position: Position Control
+group_column_homing: Zero & Home
+group_column_status: Lift Platform Status
+label_column_target: Target Position
+suffix_column_target: " m"
+label_column_jog_speed: Jog Speed
+label_column_profile_speed: Profile Speed
+label_column_move_speed: Move Speed
+suffix_column_move_speed: " m/s"
+btn_column_jog_up: "▲ Up"
+btn_column_jog_down: "▼ Down"
+btn_column_move_to: Move To
+btn_column_mode_velocity: Velocity Mode
+btn_column_mode_position: Position Mode
+column_mode_velocity_short: Velocity
+column_mode_position_short: Position
+column_detail_mode: "Mode: {mode}"
+log_column_mode_velocity_active: Switched to velocity mode
+log_column_mode_position_active: Switched to position mode
+log_column_mode_velocity_failed: Failed to switch to velocity mode
+log_column_mode_position_failed: Failed to switch to position mode
+log_column_mode_velocity_required: Switch to velocity mode first
+log_column_mode_position_required: Switch to position mode first
+log_column_jog_start: "Jogging at {speed:+.3f} m/s"
+log_column_jog_stop: Jog stopped
+log_column_jog_failed: Jog failed
+log_column_move_to_start: "Moving to {target:.4f} m at {speed:.3f} m/s"
+log_column_move_to_success: "Reached target position {target:.4f} m"
+log_column_move_to_failed: "Position move failed: {error}"
+log_column_relative_move_start: "Relative move {delta:+.4f} m"
+log_column_relative_move_success: Relative move completed
+log_column_relative_move_failed: "Relative move failed: {error}"
+btn_column_connect: Connect Lift Platform
+btn_column_disconnect: Disconnect Lift Platform
+btn_column_stop: Stop
+btn_column_estop: E-Stop
+btn_column_set_zero: Set Zero
+btn_column_return_home: Return Home
+btn_column_stop_homing: Stop Homing
+column_headers:
+- CAN
+- Node ID
+- Position (m)
+- Velocity (m/s)
+- Drive State
+- Fault
+- HOME
+- Upper
+column_status_fault: Fault
+column_switch_on: Active
+column_switch_off: Inactive
+column_homed_yes: Homed
+column_homed_no: Not homed
+column_detail_homing: "Homing in progress: {detail}"
+column_detail_status: "Pos {pos:.4f} m | Vel {vel:.4f} m/s | {homed}"
+column_detail_waiting: Waiting for drive feedback...
+column_detail_disconnected: Lift Platform not connected
+log_column_disabled: Lift Platform feature disabled
+log_column_not_connected: Connect lift platform first
+log_column_not_enabled: Enable lift platform drive first
+log_column_homing_busy: Homing operation in progress
+log_column_connecting: Connecting lift platform...
+log_column_connected: Lift Platform connected
+log_column_already_connected: Lift Platform already connected
+log_column_disconnect_failed: "Lift Platform disconnect failed: {error}"
+log_column_connect_failed: "Lift Platform connect failed: {error}"
+log_column_disconnected: Lift Platform disconnected
+log_column_enabling: Enabling lift platform...
+log_column_enabled: Lift Platform enabled
+log_column_enable_failed: "Lift Platform enable failed: {error}"
+log_column_disabling: Disabling lift platform...
+log_column_disabled_ok: Lift Platform disabled
+log_column_disable_failed: "Lift Platform disable failed: {error}"
+log_column_motion_stopped: Lift Platform motion stopped
+log_column_estop: Lift Platform emergency stop executed
+log_column_set_zero_start: Starting lift platform zero setup...
+dialog_column_zero_mode_prompt: |
+  Choose homing mode:
+  Yes = Passive zero (set current position as zero)
+  No = Active zero (find upper/lower limits, use midpoint)
+  Cancel = Abort
+log_column_need_set_zero_first: Set zero before return home
+log_column_return_home_start: Starting lift platform return home...
+log_column_homing_abort: Homing abort requested
+log_column_homing_success: Lift Platform homing succeeded
+log_column_homing_failed: "Lift Platform homing failed: {error}"
+dialog_column_return_home_title: Confirm Return Home
+dialog_column_return_home_confirm: Lift Platform will move to zero position. Continue?
+
+group_head_enable: Head Motor Enable
+group_head_tools: Connection & Tools
+group_head_motion: Joint Motion
+group_head_zero: Zero & Home
+group_head_status: Head Status Panel
+label_head_step: Step
+suffix_head_step_deg: " deg"
+head_joint_yaw: Yaw
+head_joint_pitch: Pitch
+head_headers:
+- Joint
+- CAN
+- Motor ID
+- Position
+- Velocity(rad/s)
+- Torque(Nm)
+- Temp(°C)
+- Mode
+- Status
+btn_head_zero_manual: Manual Zero
+btn_head_zero_auto: Auto Zero
+btn_head_connect: Connect Head CAN
+btn_head_disconnect: Disconnect
+btn_head_check_can: Refresh Status
+btn_head_sync: Refresh Status
+log_head_disabled: Head feature is disabled
+log_head_not_connected: Please connect head CAN first
+log_head_not_enabled: Please enable head motors first
+log_head_connecting: Connecting head CAN...
+log_head_connected: Head CAN connected
+log_head_connect_failed: "Head CAN connect failed: {error}"
+log_head_disconnected: Head CAN disconnected
+log_head_already_connected: Head CAN already connected
+log_head_disconnect_failed: "Head CAN disconnect failed: {error}"
+log_head_can_check_ok_connected: "CAN {channel} is UP, head is connected"
+log_head_can_check_ok_disconnected: "CAN {channel} is UP, head not connected — click Connect Head"
+log_head_can_check_down: "CAN {channel} is down or not available"
+log_head_enabling: Enabling head...
+log_head_enabled: Head enabled
+log_head_enable_failed: "Head enable failed: {error}"
+log_head_disabling: Disabling head...
+log_head_disabled_ok: Head disabled
+log_head_disable_failed: "Head disable failed: {error}"
+log_head_set_zero_start: Setting head zero...
+log_head_set_zero_success: Head zero set successfully
+log_head_set_zero_failed: Head zero set failed
+log_head_active_zero_warning: Auto zero will seek mechanical limits; ensure the head area is clear
+log_head_active_zero_reenable: After auto zero, motors are disabled; re-enable before motion
+log_head_go_zero_start: Homing head...
+log_head_go_zero_success: Head homed successfully
+log_head_go_zero_failed: Head homing failed
+log_head_stopped: Head motion stopped
+log_head_checking: Checking head motors...
+log_head_init_failed: "Head init failed (connect after CAN is up): {error}"

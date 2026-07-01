@@ -1,0 +1,402 @@
+window_title: OpenFlex Manager
+menu_settings: 設定(&S)
+menu_language: 言語(&L)
+menu_help: ヘルプ(&H)
+action_param_settings: パラメータ設定
+action_lang_zh: 中文
+action_lang_en: English
+action_lang_ja: 日本語
+action_lang_ru: Русский
+theme_tooltip_switch_to_dark: ダークテーマに切り替え
+theme_tooltip_switch_to_light: ライトテーマに切り替え
+action_about: このソフトについて
+btn_start_can: CAN起動
+btn_stop_can: CAN停止
+btn_check_can: CAN確認
+btn_whole_body_zero: 全身ゼロ復帰
+btn_start_teleop: 全身テレオペ開始
+btn_moveit: MOVEIT
+btn_vr: VR
+btn_lerobot: lerobotデータ収集
+tab_head: 頭部
+tab_dual_arm: 双腕
+tab_column: 昇降台
+tab_base: ベース
+placeholder_content: '{name}ページの内容は未実装です'
+group_motor_enable: モーター有効化
+btn_enable: 有効
+btn_disable: 無効
+group_motor_zero: モーターゼロ点
+btn_set_zero: ゼロ点設定
+btn_go_zero: ゼロ復帰
+group_motor_control: モーター制御
+label_arm_target: 制御対象
+arm_left_title: 左腕
+arm_right_title: 右腕
+arm_both_title: 双腕
+arm_left_short: 左
+arm_right_short: 右
+arm_both_short: 双
+label_speed: ステップ幅
+arm_init_can_bus_initialized: "[Arm] CAN バス {channel}{side_info} 初期化成功"
+arm_init_loading_direction: "[Arm] {side} アーム: 設定から方向係数を読み込み中"
+arm_init_reversed_motors: "[Arm] 反転モーター: {motors}"
+arm_init_arm_initialized: "[Arm] アーム初期化成功、モーター ID: {motor_ids}"
+arm_side_info_right: " (右アーム)"
+arm_side_info_left: " (左アーム)"
+arm_side_right: "右"
+arm_side_left: "左"
+arm_joint_labels:
+- J1
+- J2
+- J3
+- J4
+- J5
+- J6
+- J7
+- グリッパー
+joint_value_demo: 12.37度
+btn_test_all_motors: 全モーターテスト
+group_motor_status: モーター状態
+motor_headers:
+- CAN
+- モーターID
+- 位置(rad)
+- 速度(rad/s)
+- トルク(Nm)
+- 温度(C)
+- モード
+- 状態
+btn_one_click_check: モーター状態確認
+btn_start_monitor: リアルタイム監視開始
+btn_stop_monitor: リアルタイム監視停止
+log_monitor_started: リアルタイム監視を開始しました
+log_monitor_stopped: リアルタイム監視を停止しました
+label_output: 出力
+log_whole_body_zero: 全身ゼロ復帰
+log_whole_body_zero_start: 全身ゼロ復帰を開始...
+log_whole_body_zero_success: '全身ゼロ復帰成功: {total} モーター'
+log_whole_body_zero_partial: '全身ゼロ復帰部分成功: {failed} 失敗, {success} 成功, 合計 {total} モーター'
+log_whole_body_zero_error: '全身ゼロ復帰失敗: {error}'
+log_start_teleop: 全身テレオペを開始
+log_start_moveit: MOVEIT を開始
+log_enter_vr: VRモードに入る
+log_start_lerobot: lerobotデータ収集を開始
+log_set_zero_sent: ゼロ点設定コマンド送信済み
+log_set_zero_start: '{arm} ゼロ点設定を開始...'
+log_set_zero_success: '{arm} ゼロ点設定成功'
+log_set_zero_partial: '{arm} ゼロ点設定部分成功: {failed} モーター失敗'
+log_set_zero_error: '{arm} ゼロ点設定失敗: {error}'
+log_set_zero_start_both: '両腕ゼロ点設定を開始...'
+log_set_zero_success_both: '両腕ゼロ点設定成功'
+log_set_zero_partial_both: '両腕ゼロ点設定部分成功: {failed} モーター失敗'
+log_set_zero_error_both: '両腕ゼロ点設定失敗: {error}'
+dialog_set_zero_progress_both: '両腕ゼロ点設定中...'
+log_go_zero_start_both: '両腕ゼロ復帰（MITモード）を開始...'
+log_go_zero_success_both: '両腕ゼロ復帰成功: 合計 {total} モーター'
+log_go_zero_partial_both: '両腕ゼロ復帰部分成功: {failed} モーター失敗、{success} 成功、合計 {total}'
+log_go_zero_error_both: '両腕ゼロ復帰失敗: {error}'
+dialog_go_zero_progress_both: '両腕ゼロ復帰中（MITモード）...'
+log_go_zero_sent: ゼロ復帰コマンド送信済み
+log_go_zero_start: '{arm} ゼロ復帰を開始...'
+log_go_zero_success: '{arm} ゼロ復帰成功'
+log_go_zero_partial: '{arm} ゼロ復帰部分成功: {failed} モーター失敗'
+log_go_zero_error: '{arm} ゼロ復帰失敗: {error}'
+log_invalid_arm_selection: 無効なアーム選択
+log_robot_not_initialized: Robot が初期化されていません
+dialog_set_zero_title: ゼロ点設定
+dialog_set_zero_progress: '{arm} ゼロ点設定中...'
+dialog_go_zero_title: ゼロ復帰
+dialog_go_zero_progress: '{arm} ゼロ復帰中...'
+dialog_whole_body_zero_title: 全身ゼロ復帰
+dialog_whole_body_zero_progress: 全身ゼロ復帰中...
+log_joint_minus: '{joint} を減少'
+log_joint_plus: '{joint} を増加'
+table_status_online: オンライン
+log_can_starting: CAN チャンネルを起動中...
+log_can_started: すべての CAN チャンネルが起動しました
+log_can_start_failed: CAN チャンネルの起動に失敗しました
+log_can_stopping: CAN チャンネルを停止中...
+log_can_stopped: すべての CAN チャンネルが停止しました
+log_can_stop_failed: CAN チャンネルの停止に失敗しました
+log_can_checking: CAN チャンネルを確認中...
+log_can_check_ok: 'CAN チェック成功、オンライン: {interfaces}'
+log_can_check_none: すべての CAN インターフェースがダウンしています
+log_motor_enabling: '{arm} モーターを有効化中...'
+log_motor_enabled: モーター有効化済み
+log_motor_enabled_success: '{arm} 有効化完了: {count} モーター'
+log_motor_disabling: '{arm} モーターを無効化中...'
+log_motor_disabled: モーター無効化済み
+log_motor_disabled_success: '{arm} 無効化完了: {count} モーター'
+log_test_all_motors_start: 全モーターテスト開始（{arm}）
+log_test_all_motors_done: 全モーターテスト完了
+log_test_all_motors_success: 'モーターテスト完了: {total} モーター全て成功 ✓'
+log_test_all_motors_partial: 'モーターテスト完了: {success} 成功, {failed} 失敗 (合計 {total})'
+dialog_test_motors_title: モーターテスト
+dialog_test_motors_progress: モーターを順番にテスト中です。お待ちください...
+motor_test_failed: テスト失敗
+log_one_click_start: ワンクリック点検を開始
+log_one_click_done: '点検完了: 2/2 オンライン'
+log_one_click_done_with_count: '点検完了: {count} モーターオンライン'
+dialog_motor_checking_title: モーター状態確認中
+dialog_motor_checking: モーター状態を確認中です。お待ちください...
+dialog_motor_check_fail_title: モーター確認失敗
+dialog_motor_check_fail_description: '{count} 個のモーターが応答なしまたは失敗'
+motor_fail_header_arm: アーム
+motor_fail_header_can: CANチャンネル
+motor_fail_header_motor_id: モーターID
+motor_fail_header_error: エラー
+motor_fail_no_response: 応答なし
+motor_fail_unknown_error: 不明なエラー
+motor_fail_system: システム
+motor_enable_failed: 有効化失敗
+motor_set_zero_failed: ゼロ点設定失敗
+motor_go_zero_failed: ゼロ復帰失敗
+motor_disable_failed: 無効化失敗
+dialog_motor_enabling_title: モーター有効化
+dialog_motor_enabling: モーターを有効化中です。お待ちください...
+dialog_motor_disabling_title: モーター無効化
+dialog_motor_disabling: モーターを無効化中です。お待ちください...
+log_motor_enabled_all_failed: '{arm} 有効化失敗: すべてのモーターが応答なし'
+log_motor_disabled_all_failed: '{arm} 無効化失敗: すべてのモーターが応答なし'
+motor_mode_reset: Resetモード[リセット]
+motor_mode_cali: Caliモード[キャリブレーション]
+motor_mode_motor: Motorモード[運転]
+motor_mode_unknown: 不明なモード
+motor_fault_normal: 正常
+motor_fault_not_calibrated: 未キャリブレーション
+motor_fault_stall_overload: ストール過負荷故障
+motor_fault_encoder: エンコーダ故障
+motor_fault_overtemp: 過温
+motor_fault_driver: ドライバ故障
+motor_fault_undervoltage: 低電圧故障
+log_robot_initialized: 'Robot 初期化成功 (右腕: {right}, 左腕: {left})'
+dialog_can_status_title: CAN チャンネル状態
+dialog_can_status_description: 検出された CAN チャンネルとその状態
+can_status_header_interface: インターフェース
+can_status_header_status: 状態
+can_status_header_start: 起動
+can_status_header_stop: 停止
+can_status_up: UP
+can_status_down: DOWN
+btn_refresh: 更新
+btn_close: 閉じる
+btn_start: 起動
+btn_stop: 停止
+log_can_check_result: 'CAN チェック完了: {total} インターフェース, {up} UP, {down} DOWN'
+log_can_refreshing: CAN 状態を更新中...
+log_can_starting_single: '{interface} を起動中...'
+log_can_started_single: '{interface} 起動成功'
+log_can_start_failed_single: '{interface} 起動失敗'
+log_can_start_error_single: '{interface} 起動エラー: {error}'
+log_can_stopping_single: '{interface} を停止中...'
+log_can_stopped_single: '{interface} 停止済み'
+log_can_stop_failed_single: '{interface} 停止失敗'
+log_can_stop_error_single: '{interface} 停止エラー: {error}'
+group_chassis_enable: シャーシモーター有効化
+group_chassis_tools: 接続とツール
+btn_chassis_switch_to_motion: 車体移動に切替
+btn_chassis_switch_to_motor: モーター操作に切替
+dialog_chassis_motor_safety_title: 単モーター試験の安全注意
+dialog_chassis_motor_safety_message: 単モーター試験時はシャーシを床から離してください。車輪が地面に接触すると思わぬ動作や怪我の原因になります。また、モーターの過負荷運転を避け、損傷のないようご注意ください。
+dialog_chassis_motion_safety_title: シャーシ操作の注意
+dialog_chassis_motion_safety_message: |
+  前進、後退、左移動、右移動、左回転、右回転の各ボタンは切り替え式です。
+  押すと、現在の速度で指定方向へ直ちに移動します。
+  同じボタンをもう一度押すと、動作を停止して解除できます。
+dialog_chassis_motion_safety_informative: 周囲に十分な空間があり、人が近くにおらず、進行方向に障害物がないことを確認し、緊急停止手段をいつでも使える状態で操作してください。
+group_chassis_motion: 車体移動
+group_chassis_zero: ステアリング零点
+group_chassis_status: シャーシ状態
+chassis_motor_type_rs: ステア(RS)
+chassis_motor_type_um: 駆動(UM)
+chassis_headers:
+- モジュール
+- 種別
+- CAN
+- モータID
+- 位置
+- 速度
+- トルク/電流
+- 温度(°C)
+- モード
+- 状態
+label_chassis_linear_speed: 線速度
+label_chassis_angular_speed: 角速度
+suffix_chassis_linear_speed: " m/s"
+suffix_chassis_angular_speed: " rad/s"
+btn_chassis_forward: 前進
+btn_chassis_backward: 後退
+btn_chassis_left: 左移
+btn_chassis_right: 右移
+btn_chassis_rotate_left: 左回転
+btn_chassis_rotate_right: 右回転
+btn_chassis_motion_stop: 停止
+btn_chassis_connect: シャーシ接続
+btn_chassis_disconnect: シャーシ切断
+btn_chassis_scan: モーター状態を確認
+btn_chassis_stop: 駆動停止
+btn_chassis_estop: 緊急停止
+btn_chassis_zero_manual: 手動零点
+btn_chassis_zero_auto: 自動零点
+btn_chassis_zero_passive: 手動零点
+btn_chassis_zero_active: 自動零点
+btn_chassis_um_start: 起動
+btn_chassis_um_stop: 停止
+log_chassis_not_connected: 先にシャーシを接続してください
+log_chassis_set_zero_start: RSステアリング零点設定開始
+log_chassis_set_zero_success: 'RS {mode} 成功: {ok}/{total} モジュール'
+log_chassis_set_zero_partial: 'RS {mode} 一部成功: {ok}/{total} モジュール'
+log_chassis_set_zero_failed: '{mode} 失敗: {error}'
+log_chassis_auto_zero_warning: 自動零点：リミット探索のため周囲を確認してください
+log_chassis_auto_zero_reenable: 自動零点後は再使能してから運動してください
+log_chassis_go_zero_start: RSステアリングゼロ復帰開始（0°へ）
+log_chassis_go_zero_success: 'RSゼロ復帰成功: {ok}/{total} モジュール'
+log_chassis_go_zero_partial: 'RSゼロ復帰一部成功: {ok}/{total} モジュール'
+log_chassis_go_zero_failed: 'RSゼロ復帰失敗: {error}'
+chassis_module_FL: 左前
+chassis_module_FR: 右前
+chassis_module_BL: 左後
+chassis_module_BR: 右後
+dialog_chassis_enabling_title: シャーシ有効化
+dialog_chassis_enabling: シャーシモーターを有効化中...
+dialog_chassis_disabling_title: シャーシ無効化
+dialog_chassis_disabling: シャーシモーターを無効化中...
+group_column_enable: 昇降台有効化
+group_column_tools: 接続とツール
+group_column_mode: 制御モード
+group_column_motion: 運動制御
+group_column_velocity: 速度制御
+group_column_position: 位置制御
+group_column_homing: 零点と原点復帰
+group_column_status: 昇降台状態
+label_column_target: 目標位置
+suffix_column_target: " m"
+label_column_jog_speed: ジョグ速度
+label_column_profile_speed: プロファイル速度
+label_column_move_speed: 移動速度
+suffix_column_move_speed: " m/s"
+btn_column_jog_up: "▲ 上昇"
+btn_column_jog_down: "▼ 下降"
+btn_column_move_to: 位置へ移動
+btn_column_mode_velocity: 速度モード
+btn_column_mode_position: 位置モード
+column_mode_velocity_short: 速度
+column_mode_position_short: 位置
+column_detail_mode: "モード: {mode}"
+log_column_mode_velocity_active: 速度モードに切り替えました
+log_column_mode_position_active: 位置モードに切り替えました
+log_column_mode_velocity_failed: 速度モードへの切り替えに失敗
+log_column_mode_position_failed: 位置モードへの切り替えに失敗
+log_column_mode_velocity_required: 先に速度モードに切り替えてください
+log_column_mode_position_required: 先に位置モードに切り替えてください
+log_column_jog_start: "ジョグ {speed:+.3f} m/s"
+log_column_jog_stop: ジョグ停止
+log_column_jog_failed: ジョグ失敗
+log_column_move_to_start: "{target:.4f} m へ {speed:.3f} m/s で移動開始"
+log_column_move_to_success: "目標位置 {target:.4f} m に到達"
+log_column_move_to_failed: "位置移動失敗: {error}"
+log_column_relative_move_start: "相対移動 {delta:+.4f} m"
+log_column_relative_move_success: 相対移動完了
+log_column_relative_move_failed: "相対移動失敗: {error}"
+btn_column_connect: 昇降台接続
+btn_column_disconnect: 昇降台切断
+btn_column_stop: 停止
+btn_column_estop: 緊急停止
+btn_column_set_zero: 零点設定
+btn_column_return_home: 原点復帰
+btn_column_stop_homing: 零点操作停止
+column_headers:
+- CAN
+- ノードID
+- 位置(m)
+- 速度(m/s)
+- 状態
+- 故障
+- HOME
+- 上限
+column_status_fault: 故障
+column_switch_on: ON
+column_switch_off: OFF
+column_homed_yes: 零点済
+column_homed_no: 未零点
+column_detail_homing: "零点操作中: {detail}"
+column_detail_status: "位置 {pos:.4f} m | 速度 {vel:.4f} m/s | {homed}"
+column_detail_waiting: ドライバー応答待ち...
+column_detail_disconnected: 昇降台未接続
+log_column_disabled: 昇降台機能無効
+log_column_not_connected: 先に昇降台を接続してください
+log_column_not_enabled: 先に昇降台を有効化してください
+log_column_homing_busy: 零点操作実行中
+log_column_connecting: 昇降台接続中...
+log_column_connected: 昇降台接続完了
+log_column_already_connected: 昇降台は既に接続されています
+log_column_disconnect_failed: "昇降台切断失敗: {error}"
+log_column_connect_failed: "昇降台接続失敗: {error}"
+log_column_disconnected: 昇降台切断
+log_column_enabling: 昇降台有効化中...
+log_column_enabled: 昇降台有効化完了
+log_column_enable_failed: "昇降台有効化失敗: {error}"
+log_column_disabling: 昇降台無効化中...
+log_column_disabled_ok: 昇降台無効化完了
+log_column_disable_failed: "昇降台無効化失敗: {error}"
+log_column_motion_stopped: 昇降台運動停止
+log_column_estop: 昇降台緊急停止
+log_column_set_zero_start: 昇降台零点設定開始...
+log_column_need_set_zero_first: 原点復帰前に零点設定が必要
+log_column_return_home_start: 昇降台原点復帰開始...
+log_column_homing_abort: 零点操作中止要求
+log_column_homing_success: 昇降台零点/原点復帰成功
+log_column_homing_failed: "昇降台零点/原点復帰失敗: {error}"
+dialog_column_return_home_title: 原点復帰確認
+dialog_column_return_home_confirm: 昇降台を零点へ移動します。実行しますか？
+
+group_head_enable: ヘッドモーター有効化
+group_head_tools: 接続とツール
+group_head_motion: 関節運動
+group_head_zero: 零点とホーム
+group_head_status: ヘッド状態パネル
+label_head_step: ステップ
+suffix_head_step_deg: " °"
+head_joint_yaw: ヨー Yaw
+head_joint_pitch: ピッチ Pitch
+head_headers:
+- 関節
+- CAN
+- モータID
+- 位置
+- 速度(rad/s)
+- トルク(Nm)
+- 温度(°C)
+- モード
+- 状態
+btn_head_zero_manual: 手動零点
+btn_head_zero_auto: 自動零点
+btn_head_connect: ヘッド接続
+btn_head_disconnect: ヘッド切断
+btn_head_stop: 停止
+btn_head_sync: 状態更新
+log_head_disabled: ヘッド機能は無効です
+log_head_not_connected: 先にヘッドを接続してください
+log_head_not_enabled: 先にヘッドモーターを有効化してください
+log_head_connecting: ヘッド接続中...
+log_head_connected: ヘッド接続完了
+log_head_connect_failed: "ヘッド接続失敗: {error}"
+log_head_disconnected: ヘッド切断完了
+log_head_enabling: ヘッド有効化中...
+log_head_enabled: ヘッド有効化完了
+log_head_enable_failed: "ヘッド有効化失敗: {error}"
+log_head_disabling: ヘッド無効化中...
+log_head_disabled_ok: ヘッド無効化完了
+log_head_disable_failed: "ヘッド無効化失敗: {error}"
+log_head_set_zero_start: ヘッド零点設定開始...
+log_head_set_zero_success: ヘッド零点設定成功
+log_head_set_zero_failed: ヘッド零点設定失敗
+log_head_active_zero_warning: 能動零点：モーターが自動で限位を探索します。周囲に障害物がないことを確認してください
+log_head_active_zero_reenable: 能動零点後はモーターが失能状態です。再使能してから動作してください
+log_head_go_zero_start: ヘッドホーム開始...
+log_head_go_zero_success: ヘッドホーム成功
+log_head_go_zero_failed: ヘッドホーム失敗
+log_head_stopped: ヘッド運動停止
+log_head_checking: ヘッドモーター確認中...
+log_head_init_failed: "ヘッド初期化失敗（CAN 準備後に接続）: {error}"
