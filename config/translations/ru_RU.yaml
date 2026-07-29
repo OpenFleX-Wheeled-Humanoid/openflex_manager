@@ -315,12 +315,17 @@ column_headers:
 - Ошибка
 - HOME
 - Верх
+- Низ
 column_status_fault: Ошибка
 column_switch_on: Активен
 column_switch_off: Неактивен
 column_homed_yes: Ноль установлен
 column_homed_no: Ноль не установлен
 column_detail_homing: "Операция нуля: {detail}"
+column_homing_configuring: Настройка привода и датчиков
+column_homing_moving_up: Движение вверх в поиске датчика нуля
+column_homing_moving_down: Достигнут верхний предел; поиск датчика нуля вниз
+column_homing_moving_midpoint: Датчик нуля не найден; движение к середине хода
 column_detail_status: "Поз. {pos:.4f} m | Скор. {vel:.4f} m/s | {homed}"
 column_detail_waiting: Ожидание ответа привода...
 column_detail_disconnected: Подъёмная платформа не подключена
@@ -343,6 +348,8 @@ log_column_disable_failed: "Ошибка отключения подъёмной
 log_column_motion_stopped: Движение подъёмной платформы остановлено
 log_column_estop: Аварийная остановка подъёмной платформы
 log_column_set_zero_start: Поиск HOME для установки нуля...
+dialog_column_set_zero_confirm: Платформа начнёт движение вверх для поиска датчика нуля и при достижении верхнего предела может начать поиск вниз. Начать установку нуля?
+log_column_home_not_found_midpoint: Датчик нуля не обнаружен на всём ходе. Платформа остановлена в середине; проверьте датчик нуля
 log_column_need_set_zero_first: Сначала установите ноль
 log_column_return_home_start: Возврат подъёмной платформы в ноль...
 log_column_homing_abort: Запрошена остановка операции нуля

@@ -315,12 +315,17 @@ column_headers:
 - 故障
 - HOME
 - 上限
+- 下限
 column_status_fault: 故障
 column_switch_on: ON
 column_switch_off: OFF
 column_homed_yes: 零点済
 column_homed_no: 未零点
 column_detail_homing: "零点操作中: {detail}"
+column_homing_configuring: ドライバーとセンサーを設定中
+column_homing_moving_up: 上方向へ零点センサーを探索中
+column_homing_moving_down: 上限に到達し、下方向へ零点センサーを探索中
+column_homing_moving_midpoint: 零点センサー未検出のため中間位置へ移動中
 column_detail_status: "位置 {pos:.4f} m | 速度 {vel:.4f} m/s | {homed}"
 column_detail_waiting: ドライバー応答待ち...
 column_detail_disconnected: 昇降台未接続
@@ -343,6 +348,8 @@ log_column_disable_failed: "昇降台無効化失敗: {error}"
 log_column_motion_stopped: 昇降台運動停止
 log_column_estop: 昇降台緊急停止
 log_column_set_zero_start: 昇降台零点設定開始...
+dialog_column_set_zero_confirm: 昇降台は上方向へ零点センサーを探索し、上限到達後に下方向へ反転する場合があります。零点設定を開始しますか？
+log_column_home_not_found_midpoint: 全ストロークで零点センサーを検出できませんでした。昇降台は中間位置で停止しました。零点センサーを確認してください
 log_column_need_set_zero_first: 原点復帰前に零点設定が必要
 log_column_return_home_start: 昇降台原点復帰開始...
 log_column_homing_abort: 零点操作中止要求

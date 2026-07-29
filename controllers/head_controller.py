@@ -381,10 +381,10 @@ class HeadController:
         if self._connected:
             self.log(t("log_head_already_connected"), "WARNING")
             return
-        self._connect_head_for_enable()
+        self._ensure_head_connected()
 
-    def _connect_head_for_enable(self) -> bool:
-        """确保头部已连接；给使能按钮复用，不要求用户先点连接。"""
+    def _ensure_head_connected(self) -> bool:
+        """确保头部已连接；只建立 CAN 连接，不使能电机。"""
         if not self.settings.get("head_enabled", True):
             self.log(t("log_head_disabled"), "WARNING")
             return False
@@ -407,6 +407,10 @@ class HeadController:
             self._on_connect_finished(False, str(exc))
             return False
         return self._connected
+
+    def _connect_head_for_enable(self) -> bool:
+        """兼容旧调用：使能前先确保连接。"""
+        return self._ensure_head_connected()
 
     def disconnect_head(self):
         """断开头部 CAN 连接。"""
@@ -462,7 +466,7 @@ class HeadController:
             self.log(t("log_head_can_check_down", channel=channel), "ERROR")
 
     def enable_motors(self):
-        if not self._connect_head_for_enable():
+        if not self._ensure_head_connected():
             return
         was_monitoring = self.is_monitoring
         if was_monitoring:
@@ -570,7 +574,7 @@ class HeadController:
         self._update_status_ui(status)
 
     def set_zero_passive(self, motor_id: int):
-        if not self._ensure_connected():
+        if not self._ensure_head_connected():
             return
         joint = self._joint_label(motor_id)
         was_enabled = bool(self.head and self.head.is_enabled)

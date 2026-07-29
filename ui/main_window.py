@@ -576,7 +576,7 @@ class OpenFlexMainWindow(QMainWindow):
         group = QGroupBox()
         layout = QVBoxLayout(group)
 
-        self.column_table = QTableWidget(0, 8)
+        self.column_table = QTableWidget(0, 9)
         self.column_table.verticalHeader().setVisible(False)
         self.column_table.setMinimumWidth(0)
         self.column_table.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
@@ -715,7 +715,7 @@ class OpenFlexMainWindow(QMainWindow):
         self.label_chassis_linear_speed = QLabel()
         self.slider_chassis_linear_speed = QSlider(Qt.Orientation.Horizontal)
         self.slider_chassis_linear_speed.setRange(0, 200)
-        self.slider_chassis_linear_speed.setValue(20)
+        self.slider_chassis_linear_speed.setValue(10)
         self.label_chassis_linear_speed_value = QLabel()
         self.label_chassis_linear_speed_value.setMinimumWidth(72)
         self.label_chassis_linear_speed_value.setAlignment(
@@ -730,7 +730,7 @@ class OpenFlexMainWindow(QMainWindow):
         self.label_chassis_angular_speed = QLabel()
         self.slider_chassis_angular_speed = QSlider(Qt.Orientation.Horizontal)
         self.slider_chassis_angular_speed.setRange(0, 300)
-        self.slider_chassis_angular_speed.setValue(50)
+        self.slider_chassis_angular_speed.setValue(10)
         self.label_chassis_angular_speed_value = QLabel()
         self.label_chassis_angular_speed_value.setMinimumWidth(72)
         self.label_chassis_angular_speed_value.setAlignment(
@@ -768,7 +768,7 @@ class OpenFlexMainWindow(QMainWindow):
             self.btn_chassis_rotate_right,
         ):
             btn.setMinimumHeight(36)
-            btn.setCheckable(True)
+            btn.setCheckable(False)
         self.btn_chassis_motion_stop.setMinimumHeight(36)
         motion_grid.addWidget(self.btn_chassis_forward, 0, 1)
         motion_grid.addWidget(self.btn_chassis_left, 1, 0)
@@ -1107,9 +1107,18 @@ class OpenFlexMainWindow(QMainWindow):
             CHASSIS_STEERING_SINGLE_STEP_DEG,
             value=0.0,
         )
+        btn_minus = QPushButton("-")
+        btn_plus = QPushButton("+")
+        for btn in (btn_minus, btn_plus):
+            btn.setFixedSize(32, 30)
+            btn.setAutoRepeat(True)
+            btn.setAutoRepeatDelay(400)
+            btn.setAutoRepeatInterval(120)
         btn_apply = QPushButton()
         angle_row.addWidget(label_angle)
+        angle_row.addWidget(btn_minus)
         angle_row.addWidget(spin_angle, 1)
+        angle_row.addWidget(btn_plus)
         angle_row.addWidget(btn_apply)
         row_layout.addLayout(angle_row)
 
@@ -1123,6 +1132,8 @@ class OpenFlexMainWindow(QMainWindow):
             "btn_go_zero": btn_go_zero,
             "label_angle": label_angle,
             "spin_angle": spin_angle,
+            "btn_angle_minus": btn_minus,
+            "btn_angle_plus": btn_plus,
             "btn_apply_angle": btn_apply,
         }
 

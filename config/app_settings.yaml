@@ -7,9 +7,13 @@ log_font_size: 15
 chassis_enabled: true
 steering_can: can5
 driving_can: can4
-chassis_steering_speed_limit: 10.0
+chassis_steering_speed_limit: 2.0
 chassis_steering_current_limit: 8.0
+chassis_steering_alignment_tolerance_deg: 3.0
+chassis_steering_alignment_timeout_sec: 5.0
 chassis_driving_max_speed_rpm: 330.0
+chassis_default_linear_speed_m_s: 0.1
+chassis_default_angular_speed_rad_s: 0.1
 chassis_active_zero_torque: 1.5
 chassis_active_zero_velocity: 0.3
 chassis_active_zero_pos_per: 0.5
@@ -20,7 +24,7 @@ column_node_id: 16
 column_max_velocity_mps: 0.1
 column_default_speed_mps: 0.05
 column_homing_speed_mps: 0.01
-column_homing_timeout_sec: 60.0
+column_homing_timeout_sec: 120.0
 column_counts_per_meter: 2000000.0
 column_profile_acceleration: 50000
 column_profile_deceleration: 50000

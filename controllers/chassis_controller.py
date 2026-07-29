@@ -163,7 +163,7 @@ class ChassisDisableThread(QThread):
 class ChassisScanThread(QThread):
     """后台扫描 8 个电机在线状态。"""
 
-    finished_signal = Signal(dict)
+    finished_signal = Signal(object)
 
     def __init__(self, chassis: Chassis):
         super().__init__()
@@ -175,6 +175,11 @@ class ChassisScanThread(QThread):
                 self.chassis.connect()
             self.chassis.ensure_steering_bus()
             result = self.chassis.scan_motors()
+            try:
+                self.chassis.refresh_status()
+                result["status"] = self.chassis.get_status()
+            except Exception as exc:
+                result["status_error"] = str(exc)
             self.finished_signal.emit(result)
         except Exception as exc:
             self.finished_signal.emit({"error": str(exc)})
@@ -309,7 +314,7 @@ class ChassisController:
             steering_angle_limit_rad=math.radians(
                 float(self.settings.get("chassis_steering_angle_limit_deg", 90.0))
             ),
-            steering_speed_limit=float(self.settings.get("chassis_steering_speed_limit", 10.0)),
+            steering_speed_limit=float(self.settings.get("chassis_steering_speed_limit", 2.0)),
             steering_current_limit=float(self.settings.get("chassis_steering_current_limit", 8.0)),
             driving_max_speed_rpm=float(self.settings.get("chassis_driving_max_speed_rpm", 330.0)),
             driving_profile_accel_ms=int(self.settings.get("chassis_driving_profile_accel_ms", 1000)),
@@ -330,8 +335,8 @@ class ChassisController:
         self._apply_motor_spinbox_limits()
         self._apply_speed_spinbox_limits()
 
-        linear = float(self.settings.get("chassis_default_linear_speed_m_s", 0.2))
-        angular = float(self.settings.get("chassis_default_angular_speed_rad_s", 0.5))
+        linear = float(self.settings.get("chassis_default_linear_speed_m_s", 0.10))
+        angular = float(self.settings.get("chassis_default_angular_speed_rad_s", 0.10))
         if hasattr(self.window, "set_chassis_linear_speed_m_s"):
             self.window.set_chassis_linear_speed_m_s(linear)
             self.window.set_chassis_angular_speed_rad_s(angular)
@@ -343,6 +348,8 @@ class ChassisController:
         self._turn_direction: Optional[str] = None
         self._motion_repeat_timer = QTimer()
         self._motion_repeat_timer.timeout.connect(self._on_motion_repeat)
+        self._motion_pending_commands: Optional[Dict[str, Dict[str, float]]] = None
+        self._motion_alignment_started_at = 0.0
         self._um_driving_repeat_timer = QTimer()
         self._um_driving_repeat_timer.timeout.connect(self._on_um_driving_repeat)
         self._um_driving_repeat_ms = max(
@@ -423,19 +430,22 @@ class ChassisController:
                 widget.clicked.connect(handler)
 
         motion_buttons = [
-            ("btn_chassis_forward", "forward", "drive", "backward"),
-            ("btn_chassis_backward", "backward", "drive", "forward"),
-            ("btn_chassis_left", "left", "strafe", "right"),
-            ("btn_chassis_right", "right", "strafe", "left"),
-            ("btn_chassis_rotate_left", "rotate_left", "turn", "rotate_right"),
-            ("btn_chassis_rotate_right", "rotate_right", "turn", "rotate_left"),
+            ("btn_chassis_forward", "forward", "drive"),
+            ("btn_chassis_backward", "backward", "drive"),
+            ("btn_chassis_left", "left", "strafe"),
+            ("btn_chassis_right", "right", "strafe"),
+            ("btn_chassis_rotate_left", "rotate_left", "turn"),
+            ("btn_chassis_rotate_right", "rotate_right", "turn"),
         ]
-        for btn_name, mode, axis, opposite in motion_buttons:
+        for btn_name, mode, axis in motion_buttons:
             btn = getattr(w, btn_name, None)
             if btn is None:
                 continue
-            btn.clicked.connect(
-                lambda _checked=False, m=mode, a=axis, o=opposite: self._on_motion_button_clicked(m, a, o)
+            btn.pressed.connect(
+                lambda m=mode, a=axis: self._on_motion_button_pressed(m, a)
+            )
+            btn.released.connect(
+                lambda m=mode, a=axis: self._on_motion_button_released(m, a)
             )
 
         motion_stop = getattr(w, "btn_chassis_motion_stop", None)
@@ -479,6 +489,12 @@ class ChassisController:
             )
             ctrl["btn_go_zero"].clicked.connect(
                 lambda _=False, m=module: self.go_steering_home(modules=[m])
+            )
+            ctrl["btn_angle_minus"].pressed.connect(
+                lambda m=module: self.adjust_steering_angle(m, -1)
+            )
+            ctrl["btn_angle_plus"].pressed.connect(
+                lambda m=module: self.adjust_steering_angle(m, 1)
             )
             ctrl["btn_apply_angle"].clicked.connect(
                 lambda _=False, m=module: self.apply_steering_angle(m)
@@ -1023,6 +1039,31 @@ class ChassisController:
         except Exception as exc:
             self.log(f"RS 角度下发失败: {exc}", "ERROR")
 
+    def adjust_steering_angle(self, module: str, direction: int):
+        """按角度输入框的单步值相对调节单个 RS 转向电机。"""
+        name = module.upper()
+        ctrl = self.window.chassis_rs_controls.get(name)
+        if not ctrl or not self._ensure_rs_steering_ready(name):
+            return
+        spin = ctrl["spin_angle"]
+        try:
+            current_deg = self.chassis.read_module_steering_angle_deg(name)
+            if current_deg is None:
+                raise RuntimeError("无角度反馈")
+            delta_deg = spin.singleStep() * (1 if direction >= 0 else -1)
+            target_deg = max(spin.minimum(), min(spin.maximum(), current_deg + delta_deg))
+            self.chassis.set_steering_angle_deg(name, target_deg)
+            spin.blockSignals(True)
+            spin.setValue(target_deg)
+            spin.blockSignals(False)
+            self.log(
+                f"[{MODULE_NAMES_CN.get(name, name)}] RS({self._module_cfg(name).steering_id}) "
+                f"{current_deg:+.1f}° → {target_deg:+.1f}°",
+                "SUCCESS",
+            )
+        except Exception as exc:
+            self.log(f"RS 角度步进失败: {exc}", "ERROR")
+
     # ==================== 运动控制（单电机 API，保留供编程调用） ====================
 
     def set_module_command(self, module: str, angle_deg: float, speed_rpm: float):
@@ -1063,6 +1104,7 @@ class ChassisController:
     def stop_motion(self):
         """停止整车运动（四轮轮毂速度归零）。"""
         self._motion_repeat_timer.stop()
+        self._motion_pending_commands = None
         self._clear_motion_button_states()
         if self.chassis and self.is_connected:
             self.chassis.stop_motion()
@@ -1075,6 +1117,7 @@ class ChassisController:
         self._drive_direction = None
         self._strafe_direction = None
         self._turn_direction = None
+        self._motion_pending_commands = None
         for name in (
             "btn_chassis_forward",
             "btn_chassis_backward",
@@ -1155,6 +1198,7 @@ class ChassisController:
         vx, vy, omega = self._compute_motion_velocity()
         if abs(vx) < 1e-6 and abs(vy) < 1e-6 and abs(omega) < 1e-6:
             self._motion_repeat_timer.stop()
+            self._motion_pending_commands = None
             if self.chassis and self.is_connected:
                 self.chassis.stop_motion()
             if log_stop:
@@ -1168,39 +1212,40 @@ class ChassisController:
             self._clear_motion_button_states()
             return
         try:
-            self.chassis.set_chassis_velocity(vx, vy, omega)
+            commands = self.chassis.compute_module_commands_from_velocity(vx, vy, omega)
+            self.chassis.stop_motion()
+            for name in MODULE_NAMES:
+                self.chassis.set_steering_angle_deg(
+                    name, float(commands[name]["angle_deg"])
+                )
+            self._motion_pending_commands = commands
+            self._motion_alignment_started_at = time.monotonic()
             if not self._motion_repeat_timer.isActive():
                 self._motion_repeat_timer.start(self._um_driving_repeat_ms)
+            self.log("转向对齐中，驱动轮保持停止", "INFO")
         except Exception as exc:
             self._motion_repeat_timer.stop()
             self._clear_motion_button_states()
             self.log(f"底盘运动下发失败: {exc}", "ERROR")
 
-    def _on_motion_button_clicked(self, mode: str, axis: str, opposite: str):
+    def _motion_state_attr(self, axis: str) -> str:
         if axis == "drive":
-            state_attr = "_drive_direction"
-        elif axis == "strafe":
-            state_attr = "_strafe_direction"
-        else:
-            state_attr = "_turn_direction"
-        current = getattr(self, state_attr)
-        btn = getattr(self.window, f"btn_chassis_{mode}", None)
-        opp_btn = getattr(self.window, f"btn_chassis_{opposite}", None)
+            return "_drive_direction"
+        if axis == "strafe":
+            return "_strafe_direction"
+        return "_turn_direction"
 
-        if current == mode:
-            setattr(self, state_attr, None)
-            if btn is not None:
-                btn.setChecked(False)
-        else:
-            setattr(self, state_attr, mode)
-            if btn is not None:
-                btn.setChecked(True)
-            if opp_btn is not None:
-                opp_btn.blockSignals(True)
-                opp_btn.setChecked(False)
-                opp_btn.blockSignals(False)
-
+    def _on_motion_button_pressed(self, mode: str, axis: str):
+        state_attr = self._motion_state_attr(axis)
+        setattr(self, state_attr, mode)
         self._sync_chassis_motion()
+
+    def _on_motion_button_released(self, mode: str, axis: str):
+        state_attr = self._motion_state_attr(axis)
+        if getattr(self, state_attr) != mode:
+            return
+        setattr(self, state_attr, None)
+        self._sync_chassis_motion(log_stop=True)
 
     def _on_motion_speed_changed(self, _value: float = 0.0):
         if self._drive_direction or self._strafe_direction or self._turn_direction:
@@ -1220,6 +1265,34 @@ class ChassisController:
             self.log("底盘已失能，运动已停止", "WARNING")
             return
         try:
+            if self._motion_pending_commands is not None:
+                tolerance = float(
+                    self.settings.get("chassis_steering_alignment_tolerance_deg", 3.0)
+                )
+                timeout = float(
+                    self.settings.get("chassis_steering_alignment_timeout_sec", 5.0)
+                )
+                aligned = True
+                for name in MODULE_NAMES:
+                    current = self.chassis.read_module_steering_angle_deg(name)
+                    target = float(self._motion_pending_commands[name]["angle_deg"])
+                    if current is None or abs(current - target) > tolerance:
+                        aligned = False
+
+                if not aligned:
+                    if time.monotonic() - self._motion_alignment_started_at >= timeout:
+                        self.log("转向对齐超时，底盘保持停止", "ERROR")
+                        self.stop_motion()
+                    return
+
+                for name in MODULE_NAMES:
+                    self.chassis.set_driving_speed_rpm(
+                        name, float(self._motion_pending_commands[name]["speed_rpm"])
+                    )
+                self._motion_pending_commands = None
+                self.log("转向对齐完成，驱动轮开始运动", "SUCCESS")
+                return
+
             vx, vy, omega = self._compute_motion_velocity()
             self.chassis.set_chassis_velocity(vx, vy, omega)
         except Exception as exc:
@@ -1250,12 +1323,15 @@ class ChassisController:
         modules: Optional[Union[str, List[str]]] = None,
         zero_pos_per: Optional[float] = None,
     ):
-        if not self.is_connected:
+        is_auto = mode in ("active", "auto")
+        if not is_auto:
+            if not self._ensure_connected():
+                return
+        elif not self.is_connected:
             self.log(t("log_chassis_not_connected"), "ERROR")
             return
 
         mod_list = self._normalize_modules(modules)
-        is_auto = mode in ("active", "auto")
         mode_label = t("btn_chassis_zero_auto") if is_auto else t("btn_chassis_zero_manual")
         mod_hint = ""
         if mod_list and len(mod_list) == 1:
@@ -1409,6 +1485,13 @@ class ChassisController:
         for nid in expected_um:
             if nid not in um_ids:
                 self.log(f"  UM Node {nid} 离线", "WARNING")
+
+        status = result.get("status")
+        if isinstance(status, dict):
+            self._last_status = status
+            self._update_status_table(status)
+        elif result.get("status_error"):
+            self.log(f"详细状态读取失败: {result['status_error']}", "ERROR")
 
     # ==================== 状态监控 ====================
 

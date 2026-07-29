@@ -109,7 +109,7 @@ class ColumnDisableThread(QThread):
 class ColumnHomingThread(QThread):
     finished_signal = Signal(bool, str)
 
-    def __init__(self, column: Column, action: str = "passive_zero"):
+    def __init__(self, column: Column, action: str = "set_zero"):
         super().__init__()
         self.column = column
         self.action = action
@@ -117,15 +117,21 @@ class ColumnHomingThread(QThread):
     def run(self):
         try:
             if self.action == "return_home":
+                if self.column.get_control_mode() != CONTROL_MODE_POSITION:
+                    if not self.column.switch_to_position_mode():
+                        self.finished_signal.emit(
+                            False, t("log_column_mode_position_failed")
+                        )
+                        return
                 ok = self.column.return_home()
                 msg = "" if ok else (self.column.homing_detail or "回零失败")
-            elif self.action == "active_zero":
-                ok = self.column.set_active_zero()
-                msg = "" if ok else (self.column.homing_detail or "主动回零失败")
-            elif self.action == "passive_zero":
-                ok = self.column.set_passive_zero()
-                msg = "" if ok else (self.column.homing_detail or "被动回零失败")
             else:
+                if self.column.get_control_mode() != CONTROL_MODE_VELOCITY:
+                    if not self.column.switch_to_velocity_mode():
+                        self.finished_signal.emit(
+                            False, t("log_column_mode_velocity_failed")
+                        )
+                        return
                 ok = self.column.start_homing()
                 msg = "" if ok else (self.column.homing_detail or "设置零点失败")
             self.finished_signal.emit(ok, msg)
@@ -164,6 +170,7 @@ class ColumnController:
         self._jog_velocity_mps = 0.0
         self._jog_logged = False
         self._status_thread: Optional[ColumnStatusThread] = None
+        self._homing_thread: Optional[ColumnHomingThread] = None
         self._homing_active = False
         self._control_mode = CONTROL_MODE_VELOCITY
 
@@ -314,10 +321,10 @@ class ColumnController:
         if self._connected:
             self.log(t("log_column_already_connected"), "WARNING")
             return
-        self._connect_column_for_enable()
+        self._ensure_column_connected()
 
-    def _connect_column_for_enable(self) -> bool:
-        """确保升降台已连接；给使能按钮复用，不要求用户先点连接。"""
+    def _ensure_column_connected(self) -> bool:
+        """确保升降台已连接；只建立 CAN 连接，不使能驱动。"""
         if not self._ensure_column():
             return False
         if self._connected:
@@ -336,6 +343,10 @@ class ColumnController:
             self._on_connect_finished(False, str(exc))
             return False
         return self._connected
+
+    def _connect_column_for_enable(self) -> bool:
+        """兼容旧调用：使能前先确保连接。"""
+        return self._ensure_column_connected()
 
     def disconnect_column(self):
         """断开升降台 CAN 连接。"""
@@ -372,7 +383,7 @@ class ColumnController:
 
     def enable_drive(self):
         """使能升降台驱动（主线程同步，避免 QThread 生命周期与跨线程 CAN 问题）。"""
-        if not self._connect_column_for_enable():
+        if not self._ensure_column_connected():
             return
         if self._homing_active:
             self.log(t("log_column_homing_busy"), "WARNING")
@@ -446,6 +457,11 @@ class ColumnController:
 
     def stop_motion(self):
         if not self._ensure_connected():
+            return
+        if self._homing_active:
+            self.column.abort_homing()
+            self.column.stop_motion()
+            self.log(t("log_column_homing_abort"), "WARNING")
             return
         self._stop_jog()
         if self.column:
@@ -557,65 +573,51 @@ class ColumnController:
         if self.is_monitoring:
             self._poll_status_once()
 
-    def _run_homing_action(self, action: str) -> tuple[bool, str]:
-        if action == "return_home":
-            if self.column and self.column.get_control_mode() != CONTROL_MODE_POSITION:
-                if not self.column.switch_to_position_mode():
-                    return False, t("log_column_mode_position_failed")
-                self._control_mode = CONTROL_MODE_POSITION
-        elif self.column and self.column.get_control_mode() != CONTROL_MODE_VELOCITY:
-            if not self.column.switch_to_velocity_mode():
-                return False, t("log_column_mode_velocity_failed")
-            self._control_mode = CONTROL_MODE_VELOCITY
-
-        if action == "return_home":
-            ok = self.column.return_home()
-            msg = "" if ok else (self.column.homing_detail or "回零失败")
-        elif action == "active_zero":
-            ok = self.column.set_active_zero()
-            msg = "" if ok else (self.column.homing_detail or "主动回零失败")
-        elif action == "passive_zero":
-            ok = self.column.set_passive_zero()
-            msg = "" if ok else (self.column.homing_detail or "被动回零失败")
-        else:
-            ok = self.column.start_homing()
-            msg = "" if ok else (self.column.homing_detail or "设置零点失败")
-        return ok, msg
-
     def _start_homing_action(self, action: str) -> None:
-        """设零/回零（主线程同步，避免 socketcan 跨线程崩溃）。"""
-        if self._motion_busy() and not self._homing_active:
+        """在专用线程中执行设零/回零，保持停止和急停按钮可用。"""
+        if not self.column:
+            self._on_homing_finished(False, t("log_column_disabled"))
+            return
+        if self._homing_thread and self._homing_thread.isRunning():
             self.log(t("log_column_homing_busy"), "WARNING")
             return
-        try:
-            ok, msg = self._run_homing_action(action)
-            self._on_homing_finished(ok, msg)
-        except Exception as exc:
-            self._on_homing_finished(False, str(exc))
+
+        thread = ColumnHomingThread(self.column, action)
+        thread.finished_signal.connect(self._on_homing_finished)
+        thread.finished.connect(self._on_homing_thread_stopped)
+        self._homing_thread = thread
+        thread.start()
+        self._refresh_ui_state()
+
+    def _on_homing_thread_stopped(self):
+        thread = self._homing_thread
+        if thread is not None and not thread.isRunning():
+            thread.deleteLater()
+            self._homing_thread = None
 
     def request_set_zero(self):
-        if not self._ensure_connected():
+        if not self._ensure_column_connected():
             return
         if self._homing_active:
             self.log(t("log_column_homing_busy"), "WARNING")
             return
 
-        choice = QMessageBox.question(
+        confirm = QMessageBox.question(
             self.window,
             t("dialog_set_zero_title"),
-            t("dialog_column_zero_mode_prompt"),
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel,
-            QMessageBox.StandardButton.Yes,
+            t("dialog_column_set_zero_confirm"),
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No,
         )
-        if choice == QMessageBox.StandardButton.Cancel:
+        if confirm != QMessageBox.StandardButton.Yes:
             return
 
-        self.stop_motion()
+        self._stop_jog()
+        if self.column and self.column.is_enabled:
+            self.column.stop_motion()
         self._homing_active = True
-        action = "active_zero" if choice == QMessageBox.StandardButton.No else "passive_zero"
-        mode_label = t("btn_chassis_zero_auto") if action == "active_zero" else t("btn_chassis_zero_manual")
-        self.log(f"{t('log_column_set_zero_start')} ({mode_label})", "INFO")
-        self._start_homing_action(action)
+        self.log(t("log_column_set_zero_start"), "INFO")
+        self._start_homing_action("set_zero")
 
     def request_return_home(self):
         if not self._ensure_enabled():
@@ -652,6 +654,8 @@ class ColumnController:
         if ok:
             self.log(t("log_column_homing_success"), "SUCCESS")
         else:
+            if message == "home_not_found_stopped_at_midpoint":
+                message = t("log_column_home_not_found_midpoint")
             self.log(t("log_column_homing_failed", error=message), "ERROR")
         self._refresh_ui_state()
         if self.is_monitoring:
@@ -680,10 +684,13 @@ class ColumnController:
     def _on_monitor_tick(self):
         if not self.is_monitoring:
             return
+        if self._homing_active:
+            self._refresh_ui_state()
+            return
         self._poll_status_once()
 
     def _poll_status_once(self):
-        if not self.column or not self._connected:
+        if not self.column or not self._connected or self._homing_active:
             return
         try:
             self.column.refresh_status()
@@ -711,6 +718,7 @@ class ColumnController:
             t("table_status_online") if not status.get("fault") else t("column_status_fault"),
             t("column_switch_on") if status.get("home_switch") else t("column_switch_off"),
             t("column_switch_on") if status.get("upper_switch") else t("column_switch_off"),
+            t("column_switch_on") if status.get("lower_switch") else t("column_switch_off"),
         ]
         from PySide6.QtWidgets import QTableWidgetItem
         for col, text in enumerate(cells):
@@ -742,8 +750,18 @@ class ColumnController:
         detail = getattr(w, "label_column_detail", None)
         if detail is not None:
             if homing:
+                homing_detail = self.column.homing_detail if self.column else ""
+                detail_key = {
+                    "configuring": "column_homing_configuring",
+                    "moving_up_to_home": "column_homing_moving_up",
+                    "moving_down_to_home": "column_homing_moving_down",
+                    "moving_to_midpoint_no_home": "column_homing_moving_midpoint",
+                }.get(homing_detail)
                 detail.setText(
-                    t("column_detail_homing", detail=(self.column.homing_detail if self.column else ""))
+                    t(
+                        "column_detail_homing",
+                        detail=t(detail_key) if detail_key else homing_detail,
+                    )
                 )
             elif comm_ok and status:
                 mode_label = (
@@ -831,6 +849,9 @@ class ColumnController:
     def shutdown(self):
         self._monitor_timer.stop()
         self._stop_jog()
+        if self.column and self._homing_thread and self._homing_thread.isRunning():
+            self.column.abort_homing()
+            self._homing_thread.wait(3000)
         if self.column:
             try:
                 self.column.close()

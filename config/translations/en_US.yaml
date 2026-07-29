@@ -323,12 +323,17 @@ column_headers:
 - Fault
 - HOME
 - Upper
+- Lower
 column_status_fault: Fault
 column_switch_on: Active
 column_switch_off: Inactive
 column_homed_yes: Homed
 column_homed_no: Not homed
 column_detail_homing: "Homing in progress: {detail}"
+column_homing_configuring: Configuring drive and sensors
+column_homing_moving_up: Moving up to find the zero sensor
+column_homing_moving_down: Upper limit reached; moving down to find the zero sensor
+column_homing_moving_midpoint: Zero sensor not found; moving to the travel midpoint
 column_detail_status: "Pos {pos:.4f} m | Vel {vel:.4f} m/s | {homed}"
 column_detail_waiting: Waiting for drive feedback...
 column_detail_disconnected: Lift Platform not connected
@@ -351,11 +356,8 @@ log_column_disable_failed: "Lift Platform disable failed: {error}"
 log_column_motion_stopped: Lift Platform motion stopped
 log_column_estop: Lift Platform emergency stop executed
 log_column_set_zero_start: Starting lift platform zero setup...
-dialog_column_zero_mode_prompt: |
-  Choose homing mode:
-  Yes = Passive zero (set current position as zero)
-  No = Active zero (find upper/lower limits, use midpoint)
-  Cancel = Abort
+dialog_column_set_zero_confirm: The lift platform will move upward to find the zero sensor and may reverse after reaching the upper limit. Start zero setup?
+log_column_home_not_found_midpoint: The zero sensor was not detected across the full travel. The lift platform stopped at the midpoint; check the zero sensor
 log_column_need_set_zero_first: Set zero before return home
 log_column_return_home_start: Starting lift platform return home...
 log_column_homing_abort: Homing abort requested

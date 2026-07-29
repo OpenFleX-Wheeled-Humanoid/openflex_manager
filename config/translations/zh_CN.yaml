@@ -323,12 +323,17 @@ column_headers:
 - 故障
 - HOME
 - 上限
+- 下限
 column_status_fault: 故障
 column_switch_on: 触发
 column_switch_off: 未触发
 column_homed_yes: 已设零
 column_homed_no: 未设零
 column_detail_homing: "零点操作进行中: {detail}"
+column_homing_configuring: 正在配置驱动和传感器
+column_homing_moving_up: 正在向上寻找零位传感器
+column_homing_moving_down: 已触发上限位，正在向下寻找零位传感器
+column_homing_moving_midpoint: 未找到零位传感器，正在移动到行程中点
 column_detail_status: "位置 {pos:.4f} m | 速度 {vel:.4f} m/s | {homed}"
 column_detail_waiting: 等待驱动反馈...
 column_detail_disconnected: 未连接升降台
@@ -351,11 +356,8 @@ log_column_disable_failed: "升降台失能失败: {error}"
 log_column_motion_stopped: 升降台运动已停止
 log_column_estop: 升降台急停已执行
 log_column_set_zero_start: 开始设置升降台零点...
-dialog_column_zero_mode_prompt: |
-  选择回零方式：
-  「是」= 被动回零（当前位置设为零点）
-  「否」= 主动回零（寻上下限位取中点）
-  「取消」= 放弃
+dialog_column_set_zero_confirm: 升降台将先向上自动寻找零位传感器，并可能在触发上限后向下搜索。确定开始设置零点？
+log_column_home_not_found_midpoint: 完整行程内未检测到零位传感器，升降台已停在行程中点，请检查零位传感器
 log_column_need_set_zero_first: 请先设置零点，再执行回零
 log_column_return_home_start: 开始升降台回零...
 log_column_homing_abort: 已请求中止零点操作
