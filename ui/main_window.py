@@ -14,6 +14,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QMainWindow,
+    QMenuBar,
     QMessageBox,
     QPushButton,
     QScrollArea,
@@ -51,11 +52,11 @@ from utils.input_limits import (
 )
 
 CHASSIS_SPEED_SLIDER_SCALE = 100
-CONTROL_PANEL_MIN_WIDTH = 360
+CONTROL_PANEL_MIN_WIDTH = 260
 
 
-class OpenFlexMainWindow(QMainWindow):
-    """UI-only main window. No business logic in this class."""
+class MotorManagementPage(QWidget):
+    """Embeddable motor-management UI with no business logic."""
 
     def __init__(self):
         super().__init__()
@@ -70,10 +71,15 @@ class OpenFlexMainWindow(QMainWindow):
         self.retranslate_ui()
         self.apply_theme(self.current_theme)
 
-    def closeEvent(self, event):
-        """窗口关闭事件，清理资源"""
+    def shutdown(self):
+        """Stop controller-owned activity when the page or host closes."""
         if self.controller:
             self.controller.shutdown()
+            self.controller = None
+
+    def closeEvent(self, event):
+        """窗口关闭事件，清理资源"""
+        self.shutdown()
         event.accept()
 
     def _apply_window_icon(self):
@@ -81,14 +87,11 @@ class OpenFlexMainWindow(QMainWindow):
         self.setWindowIcon(QIcon(str(icon_path)))
 
     def _build_ui(self):
-        self._build_menu()
-
-        central = QWidget(self)
-        self.setCentralWidget(central)
-
-        root = QVBoxLayout(central)
+        root = QVBoxLayout(self)
         root.setContentsMargins(8, 8, 8, 8)
         root.setSpacing(10)
+
+        root.addWidget(self._build_menu())
 
         self.top_group = self._build_top_controls()
         root.addWidget(self.top_group)
@@ -111,7 +114,8 @@ class OpenFlexMainWindow(QMainWindow):
         return widget
 
     def _build_menu(self):
-        menu_bar = self.menuBar()
+        menu_bar = QMenuBar(self)
+        self.menu_bar = menu_bar
         self.menu_language = menu_bar.addMenu("")
         self.menu_help = menu_bar.addMenu("")
 
@@ -126,6 +130,7 @@ class OpenFlexMainWindow(QMainWindow):
         self.menu_language.addAction(self.action_japanese)
         self.menu_language.addAction(self.action_russian)
         self.menu_help.addAction(self.action_about)
+        return menu_bar
 
     def _build_top_controls(self):
         group = QGroupBox("", self)
@@ -1593,3 +1598,27 @@ class OpenFlexMainWindow(QMainWindow):
                 key, _, value = line.partition("=")
                 palette[key.strip()] = value.strip()
         return palette
+
+
+class OpenFlexMainWindow(QMainWindow):
+    """Standalone host retained for the original manager entry point."""
+
+    def __init__(self):
+        super().__init__()
+        self.resize(1200, 820)
+        self.motor_page = MotorManagementPage()
+        self.setCentralWidget(self.motor_page)
+        self.setWindowTitle(self.motor_page.windowTitle())
+        self.setWindowIcon(self.motor_page.windowIcon())
+
+    @property
+    def controller(self):
+        return self.motor_page.controller
+
+    @controller.setter
+    def controller(self, controller):
+        self.motor_page.controller = controller
+
+    def closeEvent(self, event):
+        self.motor_page.shutdown()
+        event.accept()

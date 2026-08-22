@@ -1,3 +1,3 @@
-from .main_window import OpenFlexMainWindow
+from .main_window import MotorManagementPage, OpenFlexMainWindow
 
-__all__ = ["OpenFlexMainWindow"]
+__all__ = ["MotorManagementPage", "OpenFlexMainWindow"]
