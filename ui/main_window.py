@@ -58,13 +58,15 @@ CONTROL_PANEL_MIN_WIDTH = 260
 class MotorManagementPage(QWidget):
     """Embeddable motor-management UI with no business logic."""
 
-    def __init__(self):
+    def __init__(self, initial_theme="light"):
         super().__init__()
+        if initial_theme not in {"light", "dark"}:
+            raise ValueError(f"unsupported motor-management theme: {initial_theme}")
         self.resize(1200, 820)
         self._placeholder_labels = {}
         self._tab_keys = ["tab_head", "tab_dual_arm", "tab_column", "tab_base"]
         self._suppress_chassis_tab_prompt = False
-        self.current_theme = "dark"
+        self.current_theme = initial_theme
         self.controller = None  # Controller 引用，用于在关闭时清理资源
         self._apply_window_icon()
         self._build_ui()

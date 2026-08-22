@@ -28,6 +28,7 @@ class EmbeddedMotorManagementPageTest(unittest.TestCase):
         )
         self.assertTrue(hasattr(page, "btn_start_can"))
         self.assertTrue(hasattr(page, "btn_chassis_estop"))
+        self.assertEqual(page.current_theme, "light")
         page.close()
 
     def test_minimum_control_center_width_does_not_overlap_head_panels(self):
