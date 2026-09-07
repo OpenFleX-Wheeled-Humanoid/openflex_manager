@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (
     QScrollArea,
     QSizePolicy,
     QSlider,
+    QSplitter,
     QStyle,
     QStackedWidget,
     QTableWidget,
@@ -115,6 +116,20 @@ class MotorManagementPage(QWidget):
         widget.setSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         return widget
 
+    def _build_horizontal_state_splitter(
+        self, object_name: str, control_widget: QWidget, state_widget: QWidget
+    ) -> QSplitter:
+        """Create a user-resizable control/state split for a device tab."""
+        splitter = QSplitter(Qt.Orientation.Horizontal, self)
+        splitter.setObjectName(object_name)
+        splitter.setChildrenCollapsible(False)
+        splitter.addWidget(control_widget)
+        splitter.addWidget(state_widget)
+        splitter.setStretchFactor(0, 1)
+        splitter.setStretchFactor(1, 2)
+        splitter.setSizes([CONTROL_PANEL_MIN_WIDTH, CONTROL_PANEL_MIN_WIDTH * 2])
+        return splitter
+
     def _build_menu(self):
         menu_bar = QMenuBar(self)
         self.menu_bar = menu_bar
@@ -179,11 +194,12 @@ class MotorManagementPage(QWidget):
 
         self.left_control_column = self._build_motor_controls_column()
         self._protect_control_panel_width(self.left_control_column)
-        layout.addWidget(self.left_control_column, 1)
 
         self.state_panel = self._build_motor_state_panel()
         self.state_panel.setMinimumWidth(0)
-        layout.addWidget(self.state_panel, 2)
+        layout.addWidget(self._build_horizontal_state_splitter(
+            "dualArmStateSplitter", self.left_control_column, self.state_panel
+        ))
         return container
 
     def _build_head_page(self):
@@ -201,12 +217,13 @@ class MotorManagementPage(QWidget):
         scroll.viewport().setObjectName("headScrollViewport")
         scroll.setWidget(self._build_head_controls_column())
         self._protect_control_panel_width(scroll)
-        layout.addWidget(scroll, 1)
 
         self.head_state_panel = self._build_head_state_panel()
         self.head_state_panel.setObjectName("headStatePanel")
         self.head_state_panel.setMinimumWidth(0)
-        layout.addWidget(self.head_state_panel, 2)
+        layout.addWidget(self._build_horizontal_state_splitter(
+            "headStateSplitter", scroll, self.head_state_panel
+        ))
         return container
 
     def _add_head_section_title(self, layout, attr_name: str):
@@ -375,12 +392,13 @@ class MotorManagementPage(QWidget):
         scroll.viewport().setObjectName("columnScrollViewport")
         scroll.setWidget(self._build_column_controls_column())
         self._protect_control_panel_width(scroll)
-        layout.addWidget(scroll, 1)
 
         self.column_state_panel = self._build_column_state_panel()
         self.column_state_panel.setObjectName("columnStatePanel")
         self.column_state_panel.setMinimumWidth(0)
-        layout.addWidget(self.column_state_panel, 2)
+        layout.addWidget(self._build_horizontal_state_splitter(
+            "columnStateSplitter", scroll, self.column_state_panel
+        ))
         return container
 
     def _add_column_section_title(self, layout, attr_name: str):
@@ -613,12 +631,13 @@ class MotorManagementPage(QWidget):
         scroll.viewport().setObjectName("chassisScrollViewport")
         scroll.setWidget(self._build_chassis_controls_column())
         self._protect_control_panel_width(scroll)
-        layout.addWidget(scroll, 1)
 
         self.chassis_state_panel = self._build_chassis_state_panel()
         self.chassis_state_panel.setObjectName("chassisStatePanel")
         self.chassis_state_panel.setMinimumWidth(0)
-        layout.addWidget(self.chassis_state_panel, 2)
+        layout.addWidget(self._build_horizontal_state_splitter(
+            "chassisStateSplitter", scroll, self.chassis_state_panel
+        ))
         return container
 
     def _add_chassis_section_title(self, layout, attr_name: str):
@@ -1568,6 +1587,15 @@ class MotorManagementPage(QWidget):
         palette = self._theme_palette(theme_name)
         self._current_palette = palette
         qss_text = self._load_theme_qss()
+        texture_dir = Path(__file__).resolve().parent / "texture"
+        qss_text = qss_text.replace(
+            "{spin_arrow_up}",
+            str(texture_dir / "spin_arrow_up.svg"),
+        )
+        qss_text = qss_text.replace(
+            "{spin_arrow_down}",
+            str(texture_dir / "spin_arrow_down.svg"),
+        )
         for key, value in palette.items():
             qss_text = qss_text.replace(f"{{{key}}}", value)
         self.setStyleSheet(qss_text)

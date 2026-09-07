@@ -152,7 +152,7 @@ class HeadController:
             ("btn_head_disconnect", self.disconnect_head),
             ("btn_head_enable", self.enable_motors),
             ("btn_head_disable", self.disable_motors),
-            ("btn_head_sync", self.check_can_status),
+            ("btn_head_sync", self.check_motors),
             ("btn_head_check", self.check_motors),
             ("btn_head_toggle_monitor", self.toggle_monitoring),
         ):
@@ -745,6 +745,9 @@ class HeadController:
             self._update_status_ui({"error": str(exc)})
 
     def check_motors(self):
+        # 状态查询只需要建立 CAN 连接，不需要使能电机。
+        if not self._ensure_head_connected():
+            return
         for mid in self._current_head_motor_ids():
             self._sync_joint_position_from_motor(mid)
         self.sync_status()
@@ -788,7 +791,8 @@ class HeadController:
             self._set_joint_logical_angle(self._active_joint, target)
 
     def toggle_monitoring(self):
-        if not self._ensure_connected():
+        # 监控与检查状态一样，只建立通信连接，不执行电机使能。
+        if not self._ensure_head_connected():
             return
         if self.is_monitoring:
             self.is_monitoring = False

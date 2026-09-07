@@ -662,7 +662,8 @@ class ColumnController:
             self._poll_status_once()
 
     def toggle_monitoring(self):
-        if not self._ensure_connected():
+        # 监控与检查状态一样，只建立通信连接，不执行驱动使能。
+        if not self._ensure_column_connected():
             return
         if self.is_monitoring:
             self.is_monitoring = False
@@ -677,7 +678,8 @@ class ColumnController:
             self._poll_status_once()
 
     def check_motors(self):
-        if not self._ensure_connected():
+        # 状态查询只需要建立 CAN 连接，不需要使能升降台驱动。
+        if not self._ensure_column_connected():
             return
         self._poll_status_once()
 
